@@ -7,6 +7,9 @@ source /etc/fsl/5.0/fsl.sh
 export PATH=$PATH:/usr/lib/mrtrix/bin
 
 export HOME=/ #so that it uses /.tractseg
-
+echo "using models"
 ls -la ~/.tractseg
-TractSeg -i $(jq -r .dwi) -o .
+
+dwi=$(jq -r .dwi config.json)
+echo "running tractseg on $dwi"
+TractSeg -i $dwi -o .
