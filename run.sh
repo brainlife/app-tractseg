@@ -1,15 +1,15 @@
 #!/bin/bash
 
-#enable fsl
-source /etc/fsl/5.0/fsl.sh
+#cuda/nvidia drivers comes from the host. it needs to be mounted by singularity
+#export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/usr/lib/nvidia-390:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/usr/lib/nvidia-390/extra:$LD_LIBRARY_PATH
 
-#enable mrtrix
-export PATH=$PATH:/usr/lib/mrtrix/bin
+source /etc/fsl/5.0/fsl.sh #enable fsl
+export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
+export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg
 
-export HOME=/ #so that it uses /.tractseg
-echo "using models"
-ls -la ~/.tractseg
+#echo "using models"
+#ls -la ~/.tractseg
 
-dwi=$(jq -r .dwi config.json)
-echo "running tractseg on $dwi"
-TractSeg -i $dwi -o .
+TractSeg -i $(jq -r .dwi config.json) -o .
