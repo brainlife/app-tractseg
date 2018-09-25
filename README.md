@@ -1,5 +1,5 @@
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
-[![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.33-blue.svg)](https://doi.org/10.25663/bl.app.95)
+[![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.95-blue.svg)](https://doi.org/10.25663/bl.app.95)
 
 # app-tractseg
 
@@ -28,6 +28,6 @@ Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/Tra
 
 You can submit this App online 
 
-* with dwi input [https://doi.org/10.25663/bl.app.103](https://doi.org/10.25663/bl.app.95)
+* with dwi input [https://doi.org/10.25663/bl.app.95](https://doi.org/10.25663/bl.app.95)
 
 via the "Execute" tab.
