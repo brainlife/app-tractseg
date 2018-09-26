@@ -10,7 +10,7 @@ Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/Tra
 [TractSeg](https://doi.org/10.1016/j.neuroimage.2018.07.070) was developed by Jakob Wasserthal from Divison of Medical Image Computing at German Cancer Research Center (DKFZ). It uses pretrained 3D convolutional neural net to quickly identify white matter bungles.
 
 ### References
-(Wasserthal et al., Neuroimage 2018)[https://doi.org/10.1016/j.neuroimage.2018.07.070]
+[Wasserthal et al., Neuroimage 2018](https://doi.org/10.1016/j.neuroimage.2018.07.070)
 
 ### Authors
 - Soichi Hayashi (hayashis@iu.edu)
