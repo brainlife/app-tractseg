@@ -16,7 +16,7 @@ RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip
 RUN pip install torch torchvision
 
 #install tractseg
-RUN pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.4.zip
+RUN pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.5.zip
 
 #make it work under singularity 
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
