@@ -1,4 +1,5 @@
-FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
+#FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
+FROM ubuntu:16.04
 
 MAINTAINER Soichi Hayashis <hayashis@iu.edu>
 
