@@ -1,10 +1,12 @@
 #FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
-FROM ubuntu:16.04
+#FROM ubuntu:16.04
+#FROM neurodebian:nd16.04-non-free
+FROM neurodebian:stretch-non-free
 
 MAINTAINER Soichi Hayashis <hayashis@iu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y git g++ python python-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl python-pip jq strace
+RUN apt-get update && apt-get install -y git g++ python python-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl-core python-pip jq strace curl
 
 RUN pip install --upgrade pip
 
@@ -17,7 +19,8 @@ ENV PATH=$PATH:/mrtrix3/bin
 RUN pip install torch torchvision
 
 #install batchgenerator/tractseg
-RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.5.zip
+#RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.5.zip
+RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/master.zip
 
 #make it work under singularity 
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
@@ -36,7 +39,7 @@ RUN mkdir -p /.tractseg \
 
 #install missing examples directory under /usr/local/lib/python2.7/dist-packages
 #https://github.com/MIC-DKFZ/TractSeg/issues/9
-ADD examples /usr/local/lib/python2.7/dist-packages/examples
+#ADD examples /usr/local/lib/python2.7/dist-packages/examples
 
 #    && curl -SL -o /code/mrtrix3_RC3.tar.gz https://zenodo.org/record/1415322/files/mrtrix3_RC3.tar.gz?download=1
 

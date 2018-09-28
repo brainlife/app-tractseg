@@ -2,5 +2,5 @@
 "dwi": "testdata/dwi.nii.gz",
 "bvecs": "testdata/dwi.bvecs",
 "bvals": "testdata/dwi.bvals",
-"preprocess": false
+"preprocess": true
 }

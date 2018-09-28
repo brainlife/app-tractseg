@@ -3,3 +3,4 @@ config.json
 tractseg_output
 masks
 dwi2response-tmp-*
+barn
