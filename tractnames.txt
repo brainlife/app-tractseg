@@ -29,7 +29,7 @@ ILF_right
 MCP            (Middle cerebellar peduncle)
 OR_left        (Optic radiation) 
 OR_right
-POPT_left      (Parieto‐occipital pontine)
+POPT_left      (Parieto occipital pontine)
 POPT_right 
 SCP_left       (Superior cerebellar peduncle)
 SCP_right 
