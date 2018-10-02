@@ -25,13 +25,13 @@ mkdir -p masks
 	fslsplit ../tractseg_output/bundle_segmentations.nii.gz
 
 	#load tractnames.txt (massage some characters) - from TractSeg README
-	names=($(cat ../tractnames.txt | tr -d '() '))
+	#names=($(cat ../tractnames.txt | tr -d '() '))
+	names=($(cat ../tractnames.txt))
 	
 	#rename each volume to the tractseg names (postfix by _Vol.nii.gz)
-	id=0
-	for file in $(ls vol*.nii.gz | sort); do
-		mv $file ${names[$id]}_Vol.nii.gz
-		let "id = id + 1"
+	for i in $(seq 0 71)
+	do
+		mv $(printf "vol%04d.nii.gz" $i) ${names[$i]}_Vol.nii.gz
 	done
 
 	#TODO - what about colors.json?

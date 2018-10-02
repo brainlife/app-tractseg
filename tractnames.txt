@@ -1,72 +1,72 @@
-F_left         (Arcuate fascicle)
-F_right
-TR_left        (Anterior Thalamic Radiation)
-TR_right
-A              (Commissure Anterior)
-C_1            (Rostrum)
-C_2            (Genu)
-C_3            (Rostral body (Premotor))
-C_4            (Anterior midbody (Primary Motor))
-C_5            (Posterior midbody (Primary Somatosensory))
-CC_6           (Isthmus)
-CC_7           (Splenium)
-CG_left        (Cingulum left)
-CG_right   
-CST_left       (Corticospinal tract)
-CST_right 
-MLF_left       (Middle longitudinal fascicle)
-MLF_right
-FPT_left       (Fronto-pontine tract)
-FPT_right 
-FX_left        (Fornix)
-FX_right
-ICP_left       (Inferior cerebellar peduncle)
-ICP_right 
-IFO_left       (Inferior occipito-frontal fascicle) 
-IFO_right
-ILF_left       (Inferior longitudinal fascicle) 
-ILF_right 
-MCP            (Middle cerebellar peduncle)
-OR_left        (Optic radiation) 
-OR_right
-POPT_left      (Parieto occipital pontine)
-POPT_right 
-SCP_left       (Superior cerebellar peduncle)
-SCP_right 
-SLF_I_left     (Superior longitudinal fascicle I)
-SLF_I_right 
-SLF_II_left    (Superior longitudinal fascicle II)
-SLF_II_right
-SLF_III_left   (Superior longitudinal fascicle III)
-SLF_III_right 
-STR_left       (Superior Thalamic Radiation)
-STR_right 
-UF_left        (Uncinate fascicle) 
-UF_right 
-CC             (Corpus Callosum - all)
-T_PREF_left    (Thalamo-prefrontal)
-T_PREF_right 
-T_PREM_left    (Thalamo-premotor)
-T_PREM_right 
-T_PREC_left    (Thalamo-precentral)
-T_PREC_right 
-T_POSTC_left   (Thalamo-postcentral)
-T_POSTC_right 
-T_PAR_left     (Thalamo-parietal)
-T_PAR_right 
-T_OCC_left     (Thalamo-occipital)
-T_OCC_right 
-ST_FO_left     (Striato-fronto-orbital)
-ST_FO_right 
-ST_PREF_left   (Striato-prefrontal)
-ST_PREF_right 
-ST_PREM_left   (Striato-premotor)
-ST_PREM_right 
-ST_PREC_left   (Striato-precentral)
-ST_PREC_right 
-ST_POSTC_left  (Striato-postcentral)
-ST_POSTC_right
-ST_PAR_left    (Striato-parietal)
-ST_PAR_right 
-ST_OCC_left    (Striato-occipital)
-ST_OCC_right
+L_Arcuate_fascicle
+R_Arcuate_fascicle
+L_Anterior_Thalamic_Radiation
+R_Anterior_Thalamic_Radiation
+Commissure_Anterior_Commissure
+C_Rostrum
+C_Genu
+C_Rostral_body_Premotor
+C_Anterior_midbody_Primary_Motor
+C_Posterior_midbody_Primary_Somatosensory
+CC_Isthmus
+CC_Splenium
+L_CG_Cingulum
+R_CG_Cingulum
+L_Corticospinal_tract
+R_Corticospinal_tract
+L_Middle_longitudinal_fascicle
+R_Middle_longitudinal_fascicle
+L_Fronto-pontine_tract
+R_Fronto-pontine_tract
+L_Fornix
+R_Fornix
+L_Inferior_cerebellar_peduncle
+R_Inferior_cerebellar_peduncle
+L_Inferior_occipito-frontal_fascicle
+R_Inferior_occipito-frontal_fascicle
+L_Inferior_longitudinal_fascicle
+R_Inferior_longitudinal_fascicle
+Middle_cerebellar_peduncle
+L_Optic_radiation
+R_Optic_radiation_
+L_Parieto_occipital_pontine
+R_Parieto_occipital_pontine
+L_Superior_cerebellar_peduncle
+R_Superior_cerebellar_peduncle
+L_Superior_longitudinal_fascicle_I
+R_Superior_longitudinal_fascicle_I
+L_Superior_longitudinal_fascicle_II
+R_Superior_longitudinal_fascicle_II
+L_Superior_longitudinal_fascicle_III
+R_Superior_longitudinal_fascicle_III
+L_Superior_Thalamic_Radiation
+R_Superior_Thalamic_Radiation)
+L_Uncinate_fascicle
+R_Uncinate_fascicle_
+Corpus_Callosum_-_all
+L_Thalamo-prefrontal
+R_Thalamo-prefrontal
+L_Thalamo-premotor
+R_Thalamo-premotor
+L_Thalamo-precentral
+R_Thalamo-precentral
+L_Thalamo-postcentral
+R_Thalamo-postcentral
+L_Thalamo-parietal
+R_Thalamo-parietal
+L_Thalamo-occipital
+R_Thalamo-occipital
+L_Striato-fronto-orbital
+R_Striato-fronto-orbital
+L_Striato-prefrontal
+R_Striato-prefrontal
+L_Striato-premotor
+R_Striato-premotor
+L_Striato-precentral
+R_Striato-precentral
+L_Striato-postcentral
+R_Striato-postcentral
+L_Striato-parietal
+R_Striato-parietal
+L_Striato-occipital
+R_Striato-occipital
