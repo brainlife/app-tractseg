@@ -19,26 +19,27 @@ if [ $(jq -r .preprocess config.json) == "true" ]; then
 fi
 TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
 
+#ln -s tractseg_output/bundle_segmentations masks
+
 #split mask into individual files to be consistent with neuro/mask/tracts datatype
-rm -rf masks
-mkdir -p masks
-(
-	cd masks
-	fslsplit ../tractseg_output/bundle_segmentations.nii.gz
-
-	#load tractnames.txt (massage some characters) - from TractSeg README
-	#names=($(cat ../tractnames.txt | tr -d '() '))
-	names=($(cat ../tractnames.txt))
-	
-	#rename each volume to the tractseg names (postfix by _Vol.nii.gz)
-	for i in $(seq 0 71)
-	do
-		mv $(printf "vol%04d.nii.gz" $i) ${names[$i]}_Vol.nii.gz
-	done
-
-	#TODO - what about colors.json?
-)
-
+#rm -rf masks
+#mkdir -p masks
+#(
+#	cd masks
+#	fslsplit ../tractseg_output/bundle_segmentations.nii.gz
+#
+#	#load tractnames.txt (massage some characters) - from TractSeg README
+#	#names=($(cat ../tractnames.txt | tr -d '() '))
+#	names=($(cat ../tractnames.txt))
+#	
+#	#rename each volume to the tractseg names (postfix by _Vol.nii.gz)
+#	for i in $(seq 0 71)
+#	do
+#		mv $(printf "vol%04d.nii.gz" $i) ${names[$i]}_Vol.nii.gz
+#	done
+#
+#	#TODO - what about colors.json?
+#)
 
 ##--track steps TODO..
 
