@@ -18,8 +18,7 @@ ENV PATH=$PATH:/mrtrix3/bin
 #install pytorch
 RUN pip install torch torchvision
 
-#let's preload pre-downloaded models that gets loaded at runtime
-ADD models /.tractseg
+RUN mkdir /.tractseg
 
 #download tractseg models and mni template?
 RUN curl -SL -o /.tractseg/pretrained_weights_tract_segmentation_v2.npz https://zenodo.org/record/1410884/files/best_weights_ep274.npz?download=1 \
@@ -35,12 +34,11 @@ RUN curl -SL -o /.tractseg/pretrained_weights_peak_regression_part1_v1.npz https
     && curl -SL -o /.tractseg/pretrained_weights_peak_regression_part4_v1.npz https://zenodo.org/record/1434212/files/best_weights_ep174.npz?download=1
 
 #install batchgenerator/tractseg
-RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.5.zip
+RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.6.zip
 
 #make it work under singularity 
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
 
 #https://wiki.ubuntu.com/DashAsBinSh 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
 

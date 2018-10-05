@@ -12,11 +12,12 @@ source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some 
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
 export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
-opts="--keep_intermediate_files"
+#opts="--keep_intermediate_files"
+opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
-TractSeg -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
+TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
 
 #split mask into individual files to be consistent with neuro/mask/tracts datatype
 rm -rf masks
