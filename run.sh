@@ -1,21 +1,22 @@
 #!/bin/bash
 
 set -e
+set -x
 
 #cuda/nvidia drivers comes from the host. it needs to be mounted by singularity
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/lib/nvidia-410:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=`pwd`/nvidia-410:$LD_LIBRARY_PATH
 
-source /etc/fsl/5.0/fsl.sh #enable fsl
+source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some reason)
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
-export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg
+export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
-opts=""
+opts="--keep_intermediate_files"
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
-TractSeg -i $(jq -r .dwi config.json) -o . $opts
+TractSeg -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
 
 #split mask into individual files to be consistent with neuro/mask/tracts datatype
 rm -rf masks
@@ -36,4 +37,17 @@ mkdir -p masks
 
 	#TODO - what about colors.json?
 )
+
+
+##--track steps TODO..
+
+#Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
+#TractSeg -i tractseg_output/peaks.nii.gz --keep_intermediate_files --skip_peak_extraction --output_type endings_segmentation -o .
+
+#For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
+#This gives you one peak per voxel telling you the main orientation of the respective bundle at this voxel. Can be used for 
+#bundle-specific tracking (add option --track to generate streamlines). Needs around 22GB of RAM because for each bundle three 
+#channels have to be stored (216 channels in total).
+#TractSeg -i tractseg_output/peaks.nii.gz --keep_intermediate_files --skip_peak_extraction --output_type TOM --track --filter_tracking_by_endpoints -o .
+
 
