@@ -44,12 +44,10 @@ TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_
 ##--track steps TODO..
 
 #Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
-#TractSeg -i tractseg_output/peaks.nii.gz --keep_intermediate_files --skip_peak_extraction --output_type endings_segmentation -o .
+TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
 
 #For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
 #This gives you one peak per voxel telling you the main orientation of the respective bundle at this voxel. Can be used for 
 #bundle-specific tracking (add option --track to generate streamlines). Needs around 22GB of RAM because for each bundle three 
 #channels have to be stored (216 channels in total).
-#TractSeg -i tractseg_output/peaks.nii.gz --keep_intermediate_files --skip_peak_extraction --output_type TOM --track --filter_tracking_by_endpoints -o .
-
-
+TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type TOM --track --filter_tracking_by_endpoints 
