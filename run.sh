@@ -17,7 +17,13 @@ opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
-TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
+
+cp $(jq -r .dwi config.json) dwi.nii.gz
+cp $(jq -r .bvecs config.json) dwi.bvecs
+cp $(jq -r .bvals config.json) dwi.bvals
+cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+
+TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type csd_msmt_5tt --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
 
 #ln -s tractseg_output/bundle_segmentations masks
 
@@ -43,7 +49,7 @@ TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_
 
 ##--track steps TODO..
 
-#Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
+#Get segmentations of the regions where the bundles start and end (helpful for filtering fibers that do not run from start until end).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
 
 #For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
