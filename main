@@ -3,5 +3,7 @@
 #PBS -N tractseg
 #PBS -V
 
+module load singularity 2> /dev/null
+
 time singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
 
