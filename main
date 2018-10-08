@@ -4,5 +4,5 @@
 #PBS -N tractseg
 #PBS -V
 
-time singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
+SINGULARITYENV_PYTHONNOUSERSITE=true singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
 
