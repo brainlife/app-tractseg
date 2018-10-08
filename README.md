@@ -3,7 +3,7 @@
 
 # app-tractseg
 
-Segement 72 white matter tracts. 
+Segment 72 white matter tracts. 
 
 Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/TractSeg](https://github.com/MIC-DKFZ/TractSeg). A tool for fast and accurate white matter bundle segmentation from Diffusion MRI. 
 
@@ -14,6 +14,9 @@ Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/Tra
 
 ### Authors
 - Soichi Hayashi (hayashis@iu.edu)
+
+### Contributors
+- Lindsey Kitchell (kitchell@iu.edu)
 
 ### Project director
 - Franco Pestilli (franpest@indiana.edu)
