@@ -12,7 +12,7 @@ source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some 
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
 export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
-#opts="--keep_intermediate_files"
+
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
@@ -21,9 +21,11 @@ fi
 cp $(jq -r .dwi config.json) dwi.nii.gz
 cp $(jq -r .bvecs config.json) dwi.bvecs
 cp $(jq -r .bvals config.json) dwi.bvals
-if [ -z "$(jq -r .t1 config.json)" ]; then
-	cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+t1=`jq -r '.t1' config.json`
+if [ $t1 != "null" ]; then
+    cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
 fi
+
 
 #csd or csd_msmt_5tt 
 TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
