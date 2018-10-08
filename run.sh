@@ -21,7 +21,9 @@ fi
 cp $(jq -r .dwi config.json) dwi.nii.gz
 cp $(jq -r .bvecs config.json) dwi.bvecs
 cp $(jq -r .bvals config.json) dwi.bvals
-cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+if [ -z "$(jq -r .t1 config.json)" ]; then
+	cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+fi
 
 #csd or csd_msmt_5tt 
 TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
