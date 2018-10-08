@@ -31,8 +31,6 @@ fi
 #csd or csd_msmt_5tt 
 TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
 
-mv ./tractseg_output/bundle_segmentations ./masks
-
 #Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
 
