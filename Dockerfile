@@ -6,7 +6,7 @@ FROM neurodebian:stretch-non-free
 MAINTAINER Soichi Hayashis <hayashis@iu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y git g++ python python-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl-core python-pip jq strace curl vim
+RUN apt-get update && apt-get install -y git g++ python python-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl-complete python-pip jq strace curl vim
 
 RUN pip install --upgrade pip
 
