@@ -12,6 +12,7 @@ source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some 
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
 export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
+rm -rf tractseg_output
 
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
