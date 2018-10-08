@@ -1,8 +1,11 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=8,walltime=2:00:00
+#PBS -l nodes=1:ppn=8,walltime=3:00:00
 #PBS -l vmem=32gb
 #PBS -N tractseg
 #PBS -V
+
+module load singularity 2> /dev/null
+
 
 time singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
 

@@ -19,6 +19,23 @@ opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
+
+cp $(jq -r .dwi config.json) dwi.nii.gz
+cp $(jq -r .bvecs config.json) dwi.bvecs
+cp $(jq -r .bvals config.json) dwi.bvals
+t1=`jq -r '.t1' config.json`
+if [ $t1 != "null" ]; then
+    cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+fi
+
+
+#csd or csd_msmt_5tt 
+TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
+
+mv ./tractseg_output/bundle_segmentations ./masks
+
+
+#Get segmentations of the regions where the bundles start and end (helpful for filtering fibers that do not run from start until end).
 #TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --csd_type csd_msmt_5tt --brain_mask testdata/mask.nii.gz --output_type tract_segmentation -o . $opts
 TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
 
