@@ -19,7 +19,8 @@ opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
-TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --csd_type csd_msmt_5tt --brain_mask testdata/mask.nii.gz --output_type tract_segmentation -o . $opts
+#TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --csd_type csd_msmt_5tt --brain_mask testdata/mask.nii.gz --output_type tract_segmentation -o . $opts
+TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
 
 #ln -s tractseg_output/bundle_segmentations masks
 
