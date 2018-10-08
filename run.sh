@@ -12,12 +12,14 @@ source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some 
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
 export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
+rm -rf tractseg_output
+
 #opts="--keep_intermediate_files"
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
 fi
-TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
+TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --csd_type csd_msmt_5tt --brain_mask testdata/mask.nii.gz --output_type tract_segmentation -o . $opts
 
 #ln -s tractseg_output/bundle_segmentations masks
 
@@ -51,3 +53,4 @@ TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
 #bundle-specific tracking (add option --track to generate streamlines). Needs around 22GB of RAM because for each bundle three 
 #channels have to be stored (216 channels in total).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type TOM --track --filter_tracking_by_endpoints 
+
