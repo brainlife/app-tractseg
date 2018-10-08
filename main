@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=8,vmem=64g,walltime=3:00:00
+#PBS -l nodes=1:ppn=8,vmem=130g,walltime=3:00:00
 #PBS -N tractseg
 #PBS -V
 
