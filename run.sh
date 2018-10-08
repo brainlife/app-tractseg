@@ -14,7 +14,6 @@ export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for pres
 
 rm -rf tractseg_output
 
-#opts="--keep_intermediate_files"
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$preprocess --preprocess"
@@ -33,35 +32,6 @@ fi
 TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
 
 mv ./tractseg_output/bundle_segmentations ./masks
-
-
-#Get segmentations of the regions where the bundles start and end (helpful for filtering fibers that do not run from start until end).
-#TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --csd_type csd_msmt_5tt --brain_mask testdata/mask.nii.gz --output_type tract_segmentation -o . $opts
-TractSeg --raw_diffusion_input -i $(jq -r .dwi config.json) --output_type tract_segmentation -o . $opts
-
-#ln -s tractseg_output/bundle_segmentations masks
-
-#split mask into individual files to be consistent with neuro/mask/tracts datatype
-#rm -rf masks
-#mkdir -p masks
-#(
-#	cd masks
-#	fslsplit ../tractseg_output/bundle_segmentations.nii.gz
-#
-#	#load tractnames.txt (massage some characters) - from TractSeg README
-#	#names=($(cat ../tractnames.txt | tr -d '() '))
-#	names=($(cat ../tractnames.txt))
-#	
-#	#rename each volume to the tractseg names (postfix by _Vol.nii.gz)
-#	for i in $(seq 0 71)
-#	do
-#		mv $(printf "vol%04d.nii.gz" $i) ${names[$i]}_Vol.nii.gz
-#	done
-#
-#	#TODO - what about colors.json?
-#)
-
-##--track steps TODO..
 
 #Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
