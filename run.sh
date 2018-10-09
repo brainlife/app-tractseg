@@ -45,3 +45,4 @@ TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
 #channels have to be stored (216 channels in total).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type TOM --track --filter_tracking_by_endpoints 
 
+python create_fgclassified.py
