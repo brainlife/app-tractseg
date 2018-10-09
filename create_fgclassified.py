@@ -13,6 +13,7 @@ import scipy.io as sio
 import json
 #import seaborn as sns
 from matplotlib import cm
+import matplotlib
 
 
 fg_classified = np.zeros([72], dtype={'names':('name', 'fibers'), 'formats':('U14', 'object')})
