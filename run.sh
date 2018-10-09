@@ -14,6 +14,8 @@ export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for pres
 
 rm -rf tractseg_output
 
+rm -rf tracks
+
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$opts --preprocess"
