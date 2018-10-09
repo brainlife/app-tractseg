@@ -4,8 +4,5 @@
 #PBS -N tractseg
 #PBS -V
 
-#TODO this is not needed on BL.. add "module load singularity" to .modules to locally test it
-#module load singularity 2> /dev/null
-
-SINGULARITYENV_PYTHONNOUSERSITE=true singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
+time singularity exec -e docker://brainlife/tractseg:1.6 ./run.sh
 

@@ -16,20 +16,25 @@ rm -rf tractseg_output
 
 opts=""
 if [ $(jq -r .preprocess config.json) == "true" ]; then
-	opts="$preprocess --preprocess"
+	opts="$opts --preprocess"
 fi
 
-cp $(jq -r .dwi config.json) dwi.nii.gz
-cp $(jq -r .bvecs config.json) dwi.bvecs
-cp $(jq -r .bvals config.json) dwi.bvals
+ln -sf $(jq -r .dwi config.json) dwi.nii.gz
+ln -sf $(jq -r .bvecs config.json) dwi.bvecs
+ln -sf $(jq -r .bvals config.json) dwi.bvals
+
 t1=`jq -r '.t1' config.json`
 if [ $t1 != "null" ]; then
-    cp $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+    ln -s $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
 fi
 
-
 #csd or csd_msmt_5tt 
-TractSeg -i dwi.nii.gz --raw_diffusion_input --csd_type $(jq -r .csd config.json) --output_type tract_segmentation --keep_intermediate_files --postprocess -o . $opts
+TractSeg -i dwi.nii.gz --raw_diffusion_input \
+	--csd_type $(jq -r .csd config.json) \
+	--output_type tract_segmentation \
+	--keep_intermediate_files \
+	--postprocess \
+	-o . $opts
 
 #Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
 TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type endings_segmentation
