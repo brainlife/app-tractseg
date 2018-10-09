@@ -20,6 +20,7 @@ name = []
 fibers = []
 fiber_count = []
 colors = sns.color_palette("hls", 72)
+os.mkdir('tracts')
 
 n = 1
 #for file in glob.glob("TOM_trackings" + "/*.trk"):
@@ -38,7 +39,7 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     for i in range(len(jsonfibers)):
         jsonfibers[i] = jsonfibers[i][0].tolist()
     jsonfile = {'name': tractname, 'color': list(colors[n]), 'coords': jsonfibers}
-    with open (str(n)+'.json', 'w') as outfile:
+    with open ('tracts/'+str(n)+'.json', 'w') as outfile:
         json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
     n+=1
     
