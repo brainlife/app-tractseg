@@ -15,6 +15,8 @@ RUN git clone https://github.com/MRtrix3/mrtrix3.git
 RUN cd mrtrix3 && git fetch --tags && git checkout tags/3.0_RC3 && ./configure && ./build
 ENV PATH=$PATH:/mrtrix3/bin
 
+RUN pip install seaborn
+
 #install pytorch
 RUN pip install torch torchvision
 
