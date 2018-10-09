@@ -11,15 +11,16 @@ import os
 import numpy as np
 import scipy.io as sio
 import json
-import seaborn as sns
-#import matplotlib.pyplot as plt
+#import seaborn as sns
+from matplotlib import cm
 
 
 fg_classified = np.zeros([72], dtype={'names':('name', 'fibers'), 'formats':('U14', 'object')})
 name = []
 fibers = []
 fiber_count = []
-colors = sns.color_palette("hls", 72)
+#colors = sns.color_palette("hls", 72)
+norm = matplotlib.colors.Normalize(vmin=1, vmax=72)
 os.mkdir('tracts')
 
 n = 1
@@ -38,7 +39,8 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     jsonfibers = np.reshape(streamlines, [len(trk.streamlines),1]).tolist()
     for i in range(len(jsonfibers)):
         jsonfibers[i] = jsonfibers[i][0].tolist()
-    jsonfile = {'name': tractname, 'color': list(colors[n]), 'coords': jsonfibers}
+    jsonfile = {'name': tractname, 'color': cm.jet(norm(n),bytes=True), 'coords': jsonfibers}
+    #list(colors[n])
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
         json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
     n+=1
