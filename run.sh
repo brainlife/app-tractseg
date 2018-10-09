@@ -25,7 +25,7 @@ ln -sf $(jq -r .bvals config.json) dwi.bvals
 
 t1=`jq -r '.t1' config.json`
 if [ $t1 != "null" ]; then
-    ln -s $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
+    ln -sf $(jq -r .t1 config.json) T1w_acpc_dc_restore_brain.nii.gz
 fi
 
 #csd or csd_msmt_5tt 
