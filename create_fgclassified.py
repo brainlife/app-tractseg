@@ -39,7 +39,7 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     
     jsonfibers = np.reshape(streamlines, [len(trk.streamlines),1]).tolist()
     for i in range(len(jsonfibers)):
-        jsonfibers[i] = jsonfibers[i][0].tolist()
+        jsonfibers[i] = [jsonfibers[i][0].tolist()]
     jsonfile = {'name': tractname, 'color': list(cm.jet(norm(n)))[0:3], 'coords': jsonfibers}
     #list(colors[n])
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
