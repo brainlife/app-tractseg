@@ -45,12 +45,17 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
         jsonfibers[i] = [jsonfibers[i][0].tolist()]
     jsonfile = {'name': tractname, 'color': list(cm.jet(norm(n)))[0:3], 'coords': jsonfibers}
     #list(colors[n])
+    tractsfile.append({"name": tractname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
+    
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
         json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
         
-    tractsfile.append({"name": tractname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
-    n+=1
     
+    n+=1
+
+with open ('tracts/tracts.json', 'w') as outfile:
+        json.dump(tractsfile, outfile, separators=(',', ': '), indent=4)
+
 fg_classified['name'] = name
 
 fg_classified['fibers'] = fibers
