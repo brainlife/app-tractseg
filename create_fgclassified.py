@@ -24,6 +24,9 @@ fiber_count = []
 norm = matplotlib.colors.Normalize(vmin=1, vmax=72)
 os.mkdir('tracts')
 
+
+tractsfile = []
+
 n = 1
 #for file in glob.glob("TOM_trackings" + "/*.trk"):
 for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
@@ -44,6 +47,8 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     #list(colors[n])
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
         json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
+        
+    tractsfile.append({"name": tractname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
     n+=1
     
 fg_classified['name'] = name
