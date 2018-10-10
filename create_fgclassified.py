@@ -28,8 +28,8 @@ os.mkdir('tracts')
 tractsfile = []
 
 n = 1
-for file in glob.glob("TOM_trackings" + "/*.trk"):
-#for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
+#for file in glob.glob("TOM_trackings" + "/*.trk"):
+for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     trk = nb.streamlines.load(file)
     tractname = os.path.basename(file).split('.trk')[0]  
     name.append(np.array(tractname))
