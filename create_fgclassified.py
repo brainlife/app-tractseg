@@ -28,8 +28,8 @@ os.mkdir('tracts')
 tractsfile = []
 
 n = 1
-#for file in glob.glob("TOM_trackings" + "/*.trk"):
-for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
+for file in glob.glob("TOM_trackings" + "/*.trk"):
+#for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     trk = nb.streamlines.load(file)
     tractname = os.path.basename(file).split('.trk')[0]  
     name.append(np.array(tractname))
@@ -45,12 +45,15 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
         jsonfibers[i] = [jsonfibers[i][0].tolist()]
     jsonfile = {'name': tractname, 'color': list(cm.jet(norm(n)))[0:3], 'coords': jsonfibers}
     #list(colors[n])
-    tractsfile.append({"name": tractname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
+    
+    splitname = tractname.split('_')
+    fullname = splitname[-1].capitalize()+' '+' '.join(splitname[0:-1])  
+    
+    tractsfile.append({"name": fullname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
     
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
         json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
         
-    
     n+=1
 
 with open ('tracts/tracts.json', 'w') as outfile:
