@@ -49,6 +49,6 @@ TractSeg -i tractseg_output/peaks.nii.gz -o . --output_type TOM --track --filter
 
 #create tractometry files CSD peaks only
 
-Tractometry -i tractseg_output/TOM_trackings/ -o tractseg_output/Tractometry_peaks.csv -e tractseg_output/endings_segmentations/ -s tractseg_output/peaks.nii.gz --TOM TOM --peak_length
+Tractometry -i tractseg_output/TOM_trackings/ -o tractseg_output/Tractometry_peaks.csv -e tractseg_output/endings_segmentations/ -s tractseg_output/peaks.nii.gz --TOM tractseg_output/TOM --peak_length
 
 python create_fgclassified.py
