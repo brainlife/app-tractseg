@@ -72,5 +72,6 @@ echo "after tractometry"
 ls tractseg_output
 
 #create wmc datatype
+mkdir -p tracts
 python create_fgclassified.py
 
