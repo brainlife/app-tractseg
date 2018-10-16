@@ -24,7 +24,7 @@ ln -sf $(jq -r .bvals config.json) dwi.bvals
 t1=`jq -r '.t1' config.json`
 [ $t1 != "null" ] && ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
 
-#csd or csd_msmt_5tt 
+#csd_type: csd or csd_msmt_5tt 
 TractSeg -i dwi.nii.gz --raw_diffusion_input \
 	--csd_type $(jq -r .csd config.json) \
 	--output_type tract_segmentation \
@@ -33,7 +33,7 @@ TractSeg -i dwi.nii.gz --raw_diffusion_input \
 	-o . \
 	$opts
 
-#Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
+##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
 TractSeg -i tractseg_output/peaks.nii.gz \
 	--output_type endings_segmentation \
 	-o .
@@ -45,16 +45,17 @@ TractSeg -i tractseg_output/peaks.nii.gz \
 TractSeg -i tractseg_output/peaks.nii.gz \
 	--output_type TOM \
 	--filter_tracking_by_endpoints \
-	--tracking_format tck \
 	--track \
+	--tracking_format tck \
 	-o .
 
 #create tractometry files CSD peaks only
-Tractometry -i tractseg_output/TOM_trackings/ \
+./Tractometry -i tractseg_output/TOM_trackings/ \
 	-o tractseg_output/Tractometry_peaks.csv \
 	-e tractseg_output/endings_segmentations/ \
 	-s tractseg_output/peaks.nii.gz \
 	--TOM tractseg_output/TOM \
+	--tracking_format tck \
 	--peak_length
 
 #create wmc datatype
