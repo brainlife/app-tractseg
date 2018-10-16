@@ -14,6 +14,9 @@ import json
 from matplotlib import cm
 import matplotlib
 
+from json import encoder
+encoder.FLOAT_REPR = lambda o: format(o, '.3f') #.3 too aggresive?
+
 fg_classified = np.zeros([72], dtype={'names':('name', 'fibers'), 'formats':('U14', 'object')})
 name = []
 fibers = []
@@ -23,18 +26,19 @@ norm = matplotlib.colors.Normalize(vmin=1, vmax=72)
 tractsfile = []
 
 n = 1
-for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
-    trk = nb.streamlines.load(file)
-    tractname = os.path.basename(file).split('.trk')[0]  
+for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
+    print("converting:"+file+" to "+str(n)+".json")
+    tck = nb.streamlines.load(file)
+    tractname = os.path.basename(file).split('.tck')[0]  
     name.append(np.array(tractname))
     
-    fiber_count.append(len(trk.streamlines))
-    streamlines = np.zeros([len(trk.streamlines)], dtype=object)
-    for e in range(len(trk.streamlines)):
-        streamlines[e] = np.transpose(trk.streamlines[e])
-    fibers.append(np.reshape(streamlines, [len(trk.streamlines),1]))
+    fiber_count.append(len(tck.streamlines))
+    streamlines = np.zeros([len(tck.streamlines)], dtype=object)
+    for e in range(len(tck.streamlines)):
+        streamlines[e] = np.transpose(tck.streamlines[e])
+    fibers.append(np.reshape(streamlines, [len(tck.streamlines),1]))
     
-    jsonfibers = np.reshape(streamlines, [len(trk.streamlines),1]).tolist()
+    jsonfibers = np.reshape(streamlines, [len(tck.streamlines),1]).tolist()
     for i in range(len(jsonfibers)):
         jsonfibers[i] = [jsonfibers[i][0].tolist()]
     jsonfile = {'name': tractname, 'color': list(cm.nipy_spectral(norm(n)))[0:3], 'coords': jsonfibers}
@@ -46,17 +50,15 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.trk"):
     tractsfile.append({"name": fullname, "color": list(cm.jet(norm(n)))[0:3], "filename": str(n)+'.json'})
     
     with open ('tracts/'+str(n)+'.json', 'w') as outfile:
-        json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
-        
+        #json.dump(jsonfile, outfile, separators=(',', ': '), indent=4)
+        json.dump(jsonfile, outfile)
     n+=1
 
 with open ('tracts/tracts.json', 'w') as outfile:
         json.dump(tractsfile, outfile, separators=(',', ': '), indent=4)
 
 fg_classified['name'] = name
-
 fg_classified['fibers'] = fibers
-
 
 txtfile = open("output_fibercounts.txt","w") 
 txtfile.write("Tracts,FiberCount\n") 
