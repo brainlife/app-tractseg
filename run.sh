@@ -46,17 +46,17 @@ TractSeg -i tractseg_output/peaks.nii.gz \
 	--output_type TOM \
 	--filter_tracking_by_endpoints \
 	--track \
-	--tracking_format tck \
 	-o .
+#--tracking_format tck \
 
 #create tractometry files CSD peaks only
-./Tractometry -i tractseg_output/TOM_trackings/ \
+Tractometry -i tractseg_output/TOM_trackings/ \
 	-o tractseg_output/Tractometry_peaks.csv \
 	-e tractseg_output/endings_segmentations/ \
 	-s tractseg_output/peaks.nii.gz \
 	--TOM tractseg_output/TOM \
-	--tracking_format tck \
 	--peak_length
+#--tracking_format tck \
 
 #create wmc datatype
 mkdir -p tracts

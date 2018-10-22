@@ -2,7 +2,7 @@
 set -e
 
 name=brainlife/tractseg
-tag=1.6
+tag=1.7
   
 docker build -t $name .
 docker tag $name $name:$tag
