@@ -2,6 +2,7 @@
 "dwi": "testdata/dwi.nii.gz",
 "bvecs": "testdata/dwi.bvecs",
 "bvals": "testdata/dwi.bvals",
-"preprocess": false,
-"csd": "csd"
+"t1": "testdata/t1.nii.gz",
+"preprocess": true,
+"csd": "csd_msmt_5tt"
 }

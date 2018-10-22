@@ -22,7 +22,10 @@ ln -sf $(jq -r .bvecs config.json) dwi.bvecs
 ln -sf $(jq -r .bvals config.json) dwi.bvals
 
 t1=`jq -r '.t1' config.json`
-[ $t1 != "null" ] && ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
+if [ $t1 != "null" ]; then
+	mkdir tractseg_output
+	ln -sf ../$t1 tractseg_output/T1w_acpc_dc_restore_brain.nii.gz
+fi
 
 #csd_type: csd or csd_msmt_5tt 
 TractSeg -i dwi.nii.gz --raw_diffusion_input \
