@@ -4,8 +4,8 @@
 #PBS -N tractseg
 #PBS -V
 
-rm -rf tractseg_output
-rm -rf tracts
+#rm -rf tractseg_output
+#rm -rf tracts
 
 time singularity exec -e docker://brainlife/tractseg:1.7 ./run.sh
 

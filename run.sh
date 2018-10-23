@@ -23,45 +23,60 @@ ln -sf $(jq -r .bvals config.json) dwi.bvals
 
 t1=`jq -r '.t1' config.json`
 if [ $t1 != "null" ]; then
-	mkdir tractseg_output
+	mkdir -p tractseg_output
 	ln -sf ../$t1 tractseg_output/T1w_acpc_dc_restore_brain.nii.gz
 fi
 
 #csd_type: csd or csd_msmt_5tt 
-TractSeg -i dwi.nii.gz --raw_diffusion_input \
-	--csd_type $(jq -r .csd config.json) \
-	--output_type tract_segmentation \
-	--keep_intermediate_files \
-	--postprocess \
-	-o . \
-	$opts
+
+if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
+	echo "running tract_segmentation"
+	TractSeg -i dwi.nii.gz --raw_diffusion_input \
+		--csd_type $(jq -r .csd config.json) \
+		--output_type tract_segmentation \
+		--keep_intermediate_files \
+		--postprocess \
+		-o . \
+		$opts
+fi
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
-TractSeg -i tractseg_output/peaks.nii.gz \
-	--output_type endings_segmentation \
-	-o .
+if [ $(ls tractseg_output/ending_segmentations | wc -l) != "144" ]; then
+	echo "running ending segmentations"
+	TractSeg -i tractseg_output/peaks.nii.gz \
+		--output_type endings_segmentation \
+		-o .
+fi
 
 #For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
 #This gives you one peak per voxel telling you the main orientation of the respective bundle at this voxel. Can be used for 
 #bundle-specific tracking (add option --track to generate streamlines). Needs around 22GB of RAM because for each bundle three 
 #channels have to be stored (216 channels in total).
-TractSeg -i tractseg_output/peaks.nii.gz \
-	--output_type TOM \
-	--filter_tracking_by_endpoints \
-	--track \
-	-o .
-#--tracking_format tck \
 
-#create tractometry files CSD peaks only
-Tractometry -i tractseg_output/TOM_trackings/ \
-	-o tractseg_output/Tractometry_peaks.csv \
-	-e tractseg_output/endings_segmentations/ \
-	-s tractseg_output/peaks.nii.gz \
-	--TOM tractseg_output/TOM \
-	--peak_length
-#--tracking_format tck \
+if [ $(ls tractseg_output/TOM_trackings | wc -l) != "72" ]; then
+	echo "running TOM --tracking"
+	TractSeg -i tractseg_output/peaks.nii.gz \
+		--output_type TOM \
+		--filter_tracking_by_endpoints \
+		--track \
+		-o .
+	#--tracking_format tck \
+fi
 
-#create wmc datatype
+if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
+	echo "running Tractometry"
+	#create tractometry files CSD peaks only
+	Tractometry -i tractseg_output/TOM_trackings/ \
+		-o tractseg_output/Tractometry_peaks.csv \
+		-e tractseg_output/endings_segmentations/ \
+		-s tractseg_output/peaks.nii.gz \
+		--TOM tractseg_output/TOM \
+		--peak_length
+	#--tracking_format tck \
+fi
+
+echo "creating wmc datatype"
 mkdir -p tracts
 python create_fgclassified.py
 
+echo "all done"
