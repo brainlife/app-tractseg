@@ -30,7 +30,7 @@ fi
 #csd_type: csd or csd_msmt_5tt 
 
 if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
-	echo "running tract_segmentation"
+	echo "(1/4) running tract_segmentation"
 	TractSeg -i dwi.nii.gz --raw_diffusion_input \
 		--csd_type $(jq -r .csd config.json) \
 		--output_type tract_segmentation \
@@ -41,8 +41,8 @@ if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
 fi
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
-if [ $(ls tractseg_output/ending_segmentations | wc -l) != "144" ]; then
-	echo "running ending segmentations"
+if [ $(ls tractseg_output/endings_segmentations | wc -l) != "144" ]; then
+	echo "(2/4) running endings_segmentation"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type endings_segmentation \
 		-o .
@@ -54,7 +54,7 @@ fi
 #channels have to be stored (216 channels in total).
 
 if [ $(ls tractseg_output/TOM_trackings | wc -l) != "72" ]; then
-	echo "running TOM --tracking"
+	echo "(3/4) running TOM --tracking"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type TOM \
 		--filter_tracking_by_endpoints \
@@ -64,7 +64,7 @@ if [ $(ls tractseg_output/TOM_trackings | wc -l) != "72" ]; then
 fi
 
 if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
-	echo "running Tractometry"
+	echo "(4/4) running Tractometry"
 	#create tractometry files CSD peaks only
 	Tractometry -i tractseg_output/TOM_trackings/ \
 		-o tractseg_output/Tractometry_peaks.csv \
