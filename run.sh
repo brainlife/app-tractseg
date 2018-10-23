@@ -53,14 +53,14 @@ fi
 #bundle-specific tracking (add option --track to generate streamlines). Needs around 22GB of RAM because for each bundle three 
 #channels have to be stored (216 channels in total).
 
-if [ $(ls tractseg_output/TOM_trackings | wc -l) != "72" ]; then
+if [ $(ls tractseg_output/TOM_trackings/*.tck | wc -l) != "72" ]; then
 	echo "(3/4) running TOM --tracking"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type TOM \
 		--filter_tracking_by_endpoints \
 		--track \
+		--tracking_format tck \
 		-o .
-	#--tracking_format tck \
 fi
 
 if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
@@ -71,8 +71,8 @@ if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
 		-e tractseg_output/endings_segmentations/ \
 		-s tractseg_output/peaks.nii.gz \
 		--TOM tractseg_output/TOM \
+		--tracking_format tck \
 		--peak_length
-	#--tracking_format tck \
 fi
 
 echo "creating wmc datatype"
