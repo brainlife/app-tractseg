@@ -13,7 +13,9 @@ import scipy.io as sio
 import json
 from matplotlib import cm
 import matplotlib
-import rdp
+
+#to simplify fibers (too slow)
+#import rdp
 
 from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.3f') #.3 too aggresive?
