@@ -24,6 +24,9 @@ ln -sf $(jq -r .bvals config.json) dwi.bvals
 t1=`jq -r '.t1' config.json`
 if [ $t1 != "null" ]; then
 	mkdir -p tractseg_output
+	ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
+
+	#for a brief period, I needed to put it here.. maybe not needed now?
 	ln -sf ../$t1 tractseg_output/T1w_acpc_dc_restore_brain.nii.gz
 fi
 
