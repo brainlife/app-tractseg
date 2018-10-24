@@ -14,7 +14,7 @@ import json
 from matplotlib import cm
 import matplotlib
 
-from simplification.cutil import simplify_coords
+#from simplification.cutil import simplify_coords
 
 #to simplify fibers (too slow)
 #import rdp
@@ -46,28 +46,20 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
     fibers.append(np.reshape(streamlines, [count,1]))
 
     #max=500
-    print("  sub-sampling and simplifing fibers..");
+    print("  sub-sampling fibers to 1000");
     max=1000
     jsonfibers = np.reshape(streamlines[:max], [max,1]).tolist()
-    all_points = 0
-    sim_points = 0
+    #all_points = 0
+    #sim_points = 0
     for i in range(max):
-	#simplified = rdp.rdp(tck.streamlines[i], epsilon=0.001)
-	#simplified = rdp.rdp_iter(tck.streamlines[i], 0.1)
-	#simplified = tck.streamlines[i]
-	#print(str(i)+" simplified from "+str(len(tck.streamlines[i]))+" "+str(len(simplified)))
+	#simplified = simplify_coords(tck.streamlines[i], 30.0)
         #jsonfibers[i] = [simplified.transpose().tolist()]
+	#all_points += len(tck.streamlines[i])
+	#sim_points += len(simplified)
 
-	simplified = simplify_coords(tck.streamlines[i], 30.0)
-	#print(str(len(tck.streamlines[i]))+" to "+str(len(simplified)))
-        jsonfibers[i] = [simplified.transpose().tolist()]
+        jsonfibers[i] = [jsonfibers[i][0].tolist()]
 
-	all_points += len(tck.streamlines[i])
-	sim_points += len(simplified)
-
-        #jsonfibers[i] = [jsonfibers[i][0].tolist()]
-
-    print(str(all_points)+" simplified to "+str(sim_points))
+    #print(str(all_points)+" simplified to "+str(sim_points))
 
     jsonfile = {'name': tractname, 'color': list(cm.nipy_spectral(norm(n)))[0:3], 'coords': jsonfibers}
     
