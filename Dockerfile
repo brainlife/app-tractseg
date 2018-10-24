@@ -51,3 +51,6 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 #COPY patch/Tractometry /usr/local/bin
 #COPY patch/Mrtrix.py /usr/local/lib/python2.7/dist-packages/tractseg/libs
 
+#to simplify fibers.. to slow!
+#RUN pip install rdp
+

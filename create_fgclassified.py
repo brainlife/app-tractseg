@@ -13,6 +13,7 @@ import scipy.io as sio
 import json
 from matplotlib import cm
 import matplotlib
+import rdp
 
 from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.3f') #.3 too aggresive?
@@ -32,7 +33,7 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
     tractname = os.path.basename(file).split('.tck')[0]  
     name.append(np.array(tractname))
     
-    count = len(tck.streamlines)
+    count = len(tck.streamlines) #should be 2000 most of the time
     fiber_counts.append(count)
 
     streamlines = np.zeros([count], dtype=object)
@@ -40,10 +41,15 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
         streamlines[e] = np.transpose(tck.streamlines[e])
     fibers.append(np.reshape(streamlines, [count,1]))
 
-    #grab first 500 fibers
-    max=500
+    #max=500
+    max=count
     jsonfibers = np.reshape(streamlines[:max], [max,1]).tolist()
     for i in range(max):
+	#simplified = rdp.rdp(tck.streamlines[i], epsilon=0.001)
+	#simplified = rdp.rdp_iter(tck.streamlines[i], 0.1)
+	#simplified = tck.streamlines[i]
+	#print(str(i)+" simplified from "+str(len(tck.streamlines[i]))+" "+str(len(simplified)))
+        #jsonfibers[i] = [simplified.transpose().tolist()]
         jsonfibers[i] = [jsonfibers[i][0].tolist()]
 
     jsonfile = {'name': tractname, 'color': list(cm.nipy_spectral(norm(n)))[0:3], 'coords': jsonfibers}
