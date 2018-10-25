@@ -49,7 +49,7 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
     print("  sub-sampling fibers to 1000");
     if count < 1000:
 	max = count
-    else
+    else:
     	max = 1000
     jsonfibers = np.reshape(streamlines[:max], [max,1]).tolist()
     #all_points = 0
