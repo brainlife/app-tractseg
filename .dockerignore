@@ -2,3 +2,5 @@ output.mat
 tractseg_output
 tracts
 dwi.*
+*tmp*
+testdata
