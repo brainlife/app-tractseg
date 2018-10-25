@@ -7,5 +7,5 @@
 #rm -rf tractseg_output
 #rm -rf tracts
 
-time singularity exec -e docker://brainlife/tractseg:1.7 ./run.sh
+time singularity exec -e docker://brainlife/tractseg:1.7.1 ./run.sh
 
