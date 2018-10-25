@@ -39,6 +39,7 @@ if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
 		--output_type tract_segmentation \
 		--keep_intermediate_files \
 		--postprocess \
+		--nr_cpus 8 \
 		-o . \
 		$opts
 fi
@@ -48,6 +49,7 @@ if [ $(ls tractseg_output/endings_segmentations | wc -l) != "144" ]; then
 	echo "(2/4) running endings_segmentation"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type endings_segmentation \
+		--nr_cpus 8 \
 		-o .
 fi
 
@@ -63,6 +65,7 @@ if [ $(ls tractseg_output/TOM_trackings/*.tck | wc -l) != "72" ]; then
 		--filter_tracking_by_endpoints \
 		--track \
 		--tracking_format tck \
+		--nr_cpus 8 \
 		-o .
 fi
 
