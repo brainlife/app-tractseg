@@ -20,4 +20,5 @@ ln -s ../output_fibercounts.txt wmc/output_fibercounts.txt
 ln -s ../tracts wmc/tracts
 
 #create tractmasks output
-ln -s tractseg_output/endings_segmentations endingmasks
+mkdir endingmasks
+ln -s ../tractseg_output/endings_segmentations endingmasks/masks
