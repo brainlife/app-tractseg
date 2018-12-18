@@ -32,6 +32,9 @@ fi
 
 #csd_type: csd or csd_msmt_5tt 
 
+#doesn't seem to cure the low-cpu usage issue https://github.com/MIC-DKFZ/TractSeg/issues/24
+#export OMP_NUM_THREADS=8
+
 if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
 	echo "(1/4) running tract_segmentation"
 	TractSeg -i dwi.nii.gz --raw_diffusion_input \

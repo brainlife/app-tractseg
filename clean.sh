@@ -4,3 +4,5 @@ rm -rf dwi.*
 rm -rf T1w_acpc_dc_restore_brain.nii.gz
 rm -rf output*
 rm -rf tracts
+rm -f raw
+rm -f endingmasks
