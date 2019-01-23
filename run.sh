@@ -6,7 +6,6 @@ set -x
 #cuda/nvidia drivers comes from the host. it needs to be mounted by singularity
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/lib/nvidia-410:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=`pwd`/nvidia-410:$LD_LIBRARY_PATH
 
 source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some reason)
 export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
