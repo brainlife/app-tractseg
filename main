@@ -4,21 +4,24 @@
 #PBS -N tractseg
 #PBS -V
 
+set -x
+set -e
+
 time singularity exec -e docker://brainlife/tractseg:1.7.1 ./run.sh
 
 #create tractseg output
-mkdir output
-ln -s ../tractseg_output/bundle_segmentations output/masks
+mkdir -p output
+ln -sf ../tractseg_output/bundle_segmentations output/masks
 
 #create raw output
-ln -s tractseg_output raw
+ln -sf tractseg_output raw
 
 #create wmc output
-mkdir wmc
-ln -s ../output.mat wmc/output.mat
-ln -s ../output_fibercounts.txt wmc/output_fibercounts.txt
-ln -s ../tracts wmc/tracts
+mkdir -p wmc
+ln -sf ../output.mat wmc/output.mat
+ln -sf ../output_fibercounts.txt wmc/output_fibercounts.txt
+ln -sf ../tracts wmc/tracts
 
 #create tractmasks output
-mkdir endingmasks
-ln -s ../tractseg_output/endings_segmentations endingmasks/masks
+mkdir -p endingmasks
+ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
