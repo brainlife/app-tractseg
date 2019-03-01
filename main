@@ -25,3 +25,7 @@ ln -sf ../tracts wmc/tracts
 #create tractmasks output
 mkdir -p endingmasks
 ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
+
+echo "Generating surfaces/ vtk from bundle_segmentations/"
+time singularity exec -e docker://brainlife/docker-pythonvtk ./mask2surface.py
+
