@@ -13,6 +13,9 @@ time singularity exec -e docker://brainlife/tractseg:1.7.1 ./run.sh
 mkdir -p output
 ln -sf ../tractseg_output/bundle_segmentations output/masks
 
+echo "Generating surfaces/ vtk from bundle_segmentations/"
+time singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
+
 #create raw output
 ln -sf tractseg_output raw
 
@@ -21,7 +24,10 @@ mkdir -p wmc
 ln -sf ../output.mat wmc/output.mat
 ln -sf ../output_fibercounts.txt wmc/output_fibercounts.txt
 ln -sf ../tracts wmc/tracts
+ln -sf ../surfaces wmc/surfaces
 
 #create tractmasks output
 mkdir -p endingmasks
 ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
+
+

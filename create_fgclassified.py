@@ -20,7 +20,7 @@ import matplotlib
 #import rdp
 
 from json import encoder
-encoder.FLOAT_REPR = lambda o: format(o, '.3f') #.3 too aggresive?
+encoder.FLOAT_REPR = lambda o: format(o, '.2f') 
 
 fg_classified = np.zeros([72], dtype={'names':('name', 'fibers'), 'formats':('U14', 'object')})
 name = []
