@@ -42,7 +42,7 @@ for file in glob.glob("tractseg_output/TOM_trackings" + "/*.tck"):
 
     streamlines = np.zeros([count], dtype=object)
     for e in range(count):
-        streamlines[e] = np.transpose(tck.streamlines[e])
+        streamlines[e] = np.transpose(tck.streamlines[e]).round(2)
     fibers.append(np.reshape(streamlines, [count,1]))
 
     #max=500
