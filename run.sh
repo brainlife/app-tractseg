@@ -30,7 +30,6 @@ if [ $t1 != "null" ]; then
 fi
 
 #csd_type: csd or csd_msmt_5tt 
-
 #doesn't seem to cure the low-cpu usage issue https://github.com/MIC-DKFZ/TractSeg/issues/24
 #export OMP_NUM_THREADS=8
 
@@ -64,8 +63,6 @@ if [ $(ls tractseg_output/TOM_trackings/*.tck | wc -l) != "72" ]; then
 	echo "(3/4) running TOM --tracking"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type TOM \
-		--filter_tracking_by_endpoints \
-		--track \
 		--tracking_format tck \
 		--nr_cpus 8 \
 		-o .
