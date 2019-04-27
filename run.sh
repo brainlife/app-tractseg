@@ -63,10 +63,10 @@ if [ $(ls tractseg_output/TOM_trackings/*.tck | wc -l) != "72" ]; then
 	echo "(3/4) running TOM --tracking"
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type TOM \
-		--tracking_format tck \
 		--nr_cpus 8 \
 		-o .
 fi
+#--tracking_format tck \
 
 if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
 	echo "(4/4) running Tractometry"
@@ -76,9 +76,9 @@ if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
 		-e tractseg_output/endings_segmentations/ \
 		-s tractseg_output/peaks.nii.gz \
 		--TOM tractseg_output/TOM \
-		--tracking_format tck \
 		--peak_length
 fi
+#--tracking_format tck \
 
 echo "creating wmc datatype"
 mkdir -p tracts
