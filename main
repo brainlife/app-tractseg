@@ -7,7 +7,7 @@
 set -x
 set -e
 
-time singularity exec -e docker://brainlife/tractseg:1.7.1 ./run.sh
+time singularity exec -e docker://brainlife/tractseg:1.9 ./run.sh
 
 #create tractseg output
 mkdir -p output
@@ -20,9 +20,9 @@ time singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
 ln -sf tractseg_output raw
 
 #create wmc output
-mkdir -p wmc
-ln -sf ../output.mat wmc/output.mat
-ln -sf ../output_fibercounts.txt wmc/output_fibercounts.txt
+mkdir -p wmc 
+ln -sf ../classification.mat wmc/classification.mat
+#ln -sf ../output_fibercounts.txt wmc/output_fibercounts.txt
 ln -sf ../tracts wmc/tracts
 ln -sf ../surfaces wmc/surfaces
 
