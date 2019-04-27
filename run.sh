@@ -87,4 +87,10 @@ echo "creating wmc datatype"
 mkdir -p tracts
 python create_fgclassified.py
 
+echo "creating joined tck"
+#.. the order of file needs to match the globbing order inside create_wmc.py.
+#according to bash manual, it should return the list in alphabetical order, or it should be ok.. but it feels brittle
+mkdir -p tck
+tckedit tractseg_output/TOM_trackings/*.tck tck/track.tck
+
 echo "all done"
