@@ -33,6 +33,8 @@ fi
 #doesn't seem to cure the low-cpu usage issue https://github.com/MIC-DKFZ/TractSeg/issues/24
 #export OMP_NUM_THREADS=8
 
+
+
 if [ $(ls tractseg_output/bundle_segmentations | wc -l) != "72" ]; then
 	echo "(1/4) running tract_segmentation"
 	TractSeg -i dwi.nii.gz --raw_diffusion_input \
@@ -51,6 +53,7 @@ if [ $(ls tractseg_output/endings_segmentations | wc -l) != "144" ]; then
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type endings_segmentation \
 		--nr_cpus 8 \
+        --tracking_format \
 		-o .
 fi
 
@@ -60,11 +63,14 @@ fi
 #channels have to be stored (216 channels in total).
 
 if [ $(ls tractseg_output/TOM_trackings/*.tck | wc -l) != "72" ]; then
-	echo "(3/4) running TOM --tracking"
-	TractSeg -i tractseg_output/peaks.nii.gz \
-		--output_type TOM \
-		--nr_cpus 8 \
-		-o .
+	echo "(3/4) running TOM/tracking"
+	#TractSeg -i tractseg_output/peaks.nii.gz \
+	#	--output_type TOM \
+	#	--nr_cpus 8 \
+    #    --tracking_format \
+	#	-o .
+    TractSeg -i tractseg_output/peaks.nii.gz --output_type TOM --nr_cpus 8 -o .
+    Tracking -i tractseg_output/peaks.nii.gz --tracking_format tck --nr_cpus 8 -o . 
 fi
 #--tracking_format tck \
 
@@ -75,10 +81,10 @@ if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
 		-o tractseg_output/Tractometry_peaks.csv \
 		-e tractseg_output/endings_segmentations/ \
 		-s tractseg_output/peaks.nii.gz \
+        --tracking_format tck \
 		--TOM tractseg_output/TOM \
 		--peak_length
 fi
-#--tracking_format tck \
 
 echo "creating wmc datatype"
 mkdir -p tracts
