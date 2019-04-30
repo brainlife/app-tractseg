@@ -22,7 +22,6 @@ ln -sf tractseg_output raw
 #create wmc output
 mkdir -p wmc 
 ln -sf ../classification.mat wmc/classification.mat
-#ln -sf ../output_fibercounts.txt wmc/output_fibercounts.txt
 ln -sf ../tracts wmc/tracts
 ln -sf ../surfaces wmc/surfaces
 

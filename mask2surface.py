@@ -11,7 +11,8 @@ if not os.path.exists("surfaces"):
 
 index=[]
 
-for file in os.listdir("output/masks"):
+inputdir="tractseg_output/bundle_segmentations"
+for file in os.listdir(inputdir):
     if file[0] == ".":
         continue
 
@@ -24,7 +25,7 @@ for file in os.listdir("output/masks"):
     b=0
     index.append({'filename':vtk_filename, 'name': surf_name, 'color': {'r':r, 'g':g, 'b':b}})
 
-    img_path = 'output/masks/'+file
+    img_path = inputdir+"/"+file
 
     # import the binary nifti image
     print("loading %s" % img_path)

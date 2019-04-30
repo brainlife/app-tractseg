@@ -88,7 +88,7 @@ fi
 
 echo "creating wmc datatype"
 mkdir -p tracts
-python create_fgclassified.py
+python create_wmc.py
 
 echo "creating joined tck"
 #.. the order of file needs to match the globbing order inside create_wmc.py.
