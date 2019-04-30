@@ -53,7 +53,6 @@ if [ $(ls tractseg_output/endings_segmentations | wc -l) != "144" ]; then
 	TractSeg -i tractseg_output/peaks.nii.gz \
 		--output_type endings_segmentation \
 		--nr_cpus 8 \
-        --tracking_format \
 		-o .
 fi
 
