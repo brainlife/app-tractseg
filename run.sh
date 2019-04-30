@@ -85,14 +85,11 @@ if [ ! -f tractseg_output/Tractometry_peaks.csv ]; then
 		--peak_length
 fi
 
-echo "creating wmc datatype"
-mkdir -p tracts
+echo "creating wmc and neuro/tck datatype"
+mkdir -p tracts tck
 python create_wmc.py
 
-echo "creating joined tck"
-#.. the order of file needs to match the globbing order inside create_wmc.py.
-#according to bash manual, it should return the list in alphabetical order, or it should be ok.. but it feels brittle
-mkdir -p tck
-tckedit tractseg_output/TOM_trackings/*.tck tck/track.tck
+#echo "creating joined tck"
+#tckedit tractseg_output/TOM_trackings/*.tck tck/track.tck
 
 echo "all done"

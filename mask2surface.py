@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import pandas as pd
+from matplotlib import cm
 
 if not os.path.exists("surfaces"):
    os.makedirs("surfaces")
@@ -20,10 +21,12 @@ for file in os.listdir(inputdir):
     surf_name=tokens[0]
     vtk_filename=surf_name+".vtk"
 
-    r=100
-    g=100
-    b=0
-    index.append({'filename':vtk_filename, 'name': surf_name, 'color': {'r':r, 'g':g, 'b':b}})
+    #r=100
+    #g=100
+    #b=0
+    color=list(cm.nipy_spectral(len(index)))[0:3]
+    #index.append({'filename':vtk_filename, 'name': surf_name, 'color': {'r':r, 'g':g, 'b':b}})
+    index.append({'filename':vtk_filename, 'name': surf_name, 'color': color})
 
     img_path = inputdir+"/"+file
 
