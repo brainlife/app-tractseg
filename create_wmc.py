@@ -64,16 +64,17 @@ for file in files:
     fiber_index = np.append(fiber_index, index)
     names = np.append(names, tractname.strip())
 
-print("creating tck/track.tck")
-commands = ["tckedit", "-force"] + files + ["tck/track.tck"]
-print(commands)
-subprocess.call(commands)
-
 with open ('tracts/tracts.json', 'w') as outfile:
     json.dump(tractsfile, outfile, separators=(',', ': '), indent=4)
 
 print("saving classification.mat")
-sio.savemat('classification.mat', { "names": names, "index": fiber_index })
+sio.savemat('classification.mat', { "classification": {"names": names, "index": fiber_index }})
+
+print("creating tck/track.tck")
+commands = ["tckedit", "-force"] + files + ["tck/track.tck"]
+#print(commands)
+subprocess.call(commands)
+
 print("all done")
 
 
