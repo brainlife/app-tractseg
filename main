@@ -4,10 +4,15 @@
 #PBS -N tractseg
 #PBS -V
 
+#needed for bridges
+#SBATCH -p GPU-shared
+#SBATCH --gres=gpu:p100:2
+
 set -x
 set -e
 
-time singularity exec -e docker://brainlife/tractseg:1.9 ./run.sh
+module load cuda/10.0
+time singularity exec --nv -e docker://brainlife/tractseg:1.9 ./run.sh
 
 #create tractseg output
 mkdir -p output
