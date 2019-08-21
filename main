@@ -5,7 +5,7 @@
 #PBS -V
 
 #needed for bridges
-#SBATCH -p GPU-shared
+##SBATCH -p GPU-shared
 #SBATCH --gres=gpu:p100:2
 
 set -x
