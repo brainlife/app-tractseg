@@ -19,6 +19,7 @@ mkdir -p output
 ln -sf ../tractseg_output/bundle_segmentations output/masks
 
 echo "Generating surfaces/ vtk from bundle_segmentations/"
+export SINGULARITYENV_PYTHONNOUSERSITE=true
 time singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
 
 #create raw output
