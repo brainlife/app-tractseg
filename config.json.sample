@@ -4,5 +4,5 @@
 "bvals": "testdata/dwi.bvals",
 "t1": "testdata/t1.nii.gz",
 "preprocess": false,
-"csd": "csd_msmt_5tt"
+"csd": "csd"
 }

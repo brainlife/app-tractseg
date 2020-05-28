@@ -8,11 +8,12 @@
 ##SBATCH -p GPU-shared
 #SBATCH --gres=gpu:p100:2
 
+module load cuda/10.0
+
 set -x
 set -e
 
-module load cuda/10.0
-time singularity exec --nv -e docker://brainlife/tractseg:1.9 ./run.sh
+time singularity exec --nv -e docker://brainlife/tractseg:2.1.1 ./run.sh
 
 #create tractseg output
 mkdir -p output
