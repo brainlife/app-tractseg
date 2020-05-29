@@ -23,7 +23,7 @@ mkdir -p wmc/surfaces
 singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
 
 echo "merging .tck into 1"
-mkdir tck
+mkdir -p tck
 singularity exec -e docker://brainlife/mrtrix3:3.0.0 tckedit -force tractseg_output/TOM_trackings/*.tck tck/track.tck
 
 #create tractseg output
