@@ -29,13 +29,15 @@ fi
 #doesn't seem to cure the low-cpu usage issue https://github.com/MIC-DKFZ/TractSeg/issues/24
 #export OMP_NUM_THREADS=8
 
+mkdir -p tractseg_output
+
 echo "(1/4) running tract_segmentation"
 TractSeg -i dwi.nii.gz --raw_diffusion_input \
     --csd_type $(jq -r .csd config.json) \
     --output_type tract_segmentation \
     --keep_intermediate_files \
     --nr_cpus 8 \
-    -o . \
+    -o tractseg_output \
     $opts
 
 #disappeared for 2.1.1?
@@ -46,7 +48,7 @@ echo "(2/4) running endings_segmentation"
 TractSeg -i tractseg_output/peaks.nii.gz \
     --output_type endings_segmentation \
     --nr_cpus 8 \
-    -o .
+    -o tractseg_output
 
 #For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
 #This gives you one peak per voxel telling you the main orientation of the respective bundle at this voxel. Can be used for 
@@ -59,8 +61,8 @@ echo "(3/4) running TOM/tracking"
 #	--nr_cpus 8 \
 #    --tracking_format \
 #	-o .
-TractSeg -i tractseg_output/peaks.nii.gz --output_type TOM --nr_cpus 8 -o .
-Tracking -i tractseg_output/peaks.nii.gz --tracking_format tck --nr_cpus 8 -o . 
+TractSeg -i tractseg_output/peaks.nii.gz --output_type TOM --nr_cpus 8 -o tractseg_output
+Tracking -i tractseg_output/peaks.nii.gz --tracking_format tck --nr_cpus 8 -o tractseg_output
 #--tracking_format tck \
 
 echo "(4/4) running Tractometry"
