@@ -25,11 +25,7 @@ if [ $t1 != "null" ]; then
 	ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
 fi
 
-#csd_type: csd or csd_msmt_5tt 
-#doesn't seem to cure the low-cpu usage issue https://github.com/MIC-DKFZ/TractSeg/issues/24
-#export OMP_NUM_THREADS=8
-
-mkdir -p tractseg_output
+#mkdir -p tractseg_output
 
 echo "(1/4) running tract_segmentation"
 TractSeg -i dwi.nii.gz --raw_diffusion_input \
@@ -56,17 +52,17 @@ TractSeg -i tractseg_output/peaks.nii.gz \
 #channels have to be stored (216 channels in total).
 
 echo "(3/4) running TOM/tracking"
-#TractSeg -i tractseg_output/peaks.nii.gz \
-#	--output_type TOM \
-#	--nr_cpus 8 \
-#    --tracking_format \
-#	-o .
-TractSeg -i tractseg_output/peaks.nii.gz --output_type TOM --nr_cpus 8 -o tractseg_output
-Tracking -i tractseg_output/peaks.nii.gz --tracking_format tck --nr_cpus 8 -o tractseg_output
-#--tracking_format tck \
+TractSeg -i tractseg_output/peaks.nii.gz \
+    --output_type TOM \
+    --nr_cpus 8 \
+    -o tractseg_output
+
+Tracking -i tractseg_output/peaks.nii.gz \
+    --tracking_format tck \
+    --nr_cpus 8 \
+    -o tractseg_output
 
 echo "(4/4) running Tractometry"
-#create tractometry files CSD peaks only
 Tractometry -i tractseg_output/TOM_trackings/ \
     -o tractseg_output/Tractometry_peaks.csv \
     -e tractseg_output/endings_segmentations/ \
@@ -75,8 +71,4 @@ Tractometry -i tractseg_output/TOM_trackings/ \
     --TOM tractseg_output/TOM \
     --peak_length
 
-echo "creating wmc and neuro/tck datatype"
-mkdir -p tracts tck
-python create_wmc.py
-
-echo "all done"
+echo "all done with tractseg"

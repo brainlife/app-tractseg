@@ -13,27 +13,25 @@ module load cuda/10.0
 set -x
 set -e
 
+echo "running tractseg"
 time singularity exec --nv -e docker://brainlife/tractseg:2.1.1 ./run.sh
+
+echo "creating wmc"
+mkdir -p wmc/tracts
+singularity exec -e docker://brainlife/dipy:1.1.1 ./create_wmc.py
+mkdir -p wmc/surfaces
+singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
+
+echo "merging .tck into 1"
+mkdir tck
+singularity exec -e docker://brainlife/mrtrix3:3.0.0 tckedit -force tractseg_output/TOM_trackings/*.tck tck/track.tck
 
 #create tractseg output
 mkdir -p output
 ln -sf ../tractseg_output/bundle_segmentations output/masks
 
-echo "Generating surfaces/ vtk from bundle_segmentations/"
-export SINGULARITYENV_PYTHONNOUSERSITE=true
-time singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
-
-#create raw output
-ln -sf tractseg_output raw
-
-#create wmc output
-mkdir -p wmc 
-ln -sf ../classification.mat wmc/classification.mat
-ln -sf ../tracts wmc/tracts
-ln -sf ../surfaces wmc/surfaces
-
 #create tractmasks output
 mkdir -p endingmasks
 ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
 
-
+echo "all done"

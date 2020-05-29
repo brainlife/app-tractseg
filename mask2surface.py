@@ -7,9 +7,6 @@ import json
 import pandas as pd
 from matplotlib import cm
 
-if not os.path.exists("surfaces"):
-   os.makedirs("surfaces")
-
 index=[]
 
 inputdir="tractseg_output/bundle_segmentations"
@@ -78,11 +75,11 @@ for file in os.listdir(inputdir):
 
     writer = vtk.vtkPolyDataWriter()
     writer.SetInputConnection(deci.GetOutputPort())
-    writer.SetFileName("surfaces/"+vtk_filename)
+    writer.SetFileName("wmc/surfaces/"+vtk_filename)
     writer.Write()
 
 print("writing surfaces/index.json")
-with open("surfaces/index.json", "w") as outfile:
+with open("wmc/surfaces/index.json", "w") as outfile:
     json.dump(index, outfile)
 
 print("all done")

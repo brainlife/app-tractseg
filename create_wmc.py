@@ -1,15 +1,10 @@
-#!/usr/bin/env python
-"""
-Created on Tue Oct  9 09:39:41 2018
+#!/usr/bin/env python3
 
-@author: lindseykitchell
-"""
-
-import nibabel as nb
 import glob
 import os
 import numpy as np
 import scipy.io as sio
+import nibabel as nb
 import json
 import subprocess
 
@@ -51,7 +46,7 @@ for file in files:
     for i in range(max):
         jsonfibers[i] = [jsonfibers[i][0].tolist()]
 
-    with open ('tracts/'+str(len(names))+'.json', 'w') as outfile:
+    with open ('wmc/tracts/'+str(len(names))+'.json', 'w') as outfile:
         jsonfile = {'name': tractname, 'color': color, 'coords': jsonfibers}
         json.dump(jsonfile, outfile)
 
@@ -64,17 +59,14 @@ for file in files:
     fiber_index = np.append(fiber_index, index)
     names = np.append(names, tractname.strip())
 
-with open ('tracts/tracts.json', 'w') as outfile:
+with open ('wmc/tracts/tracts.json', 'w') as outfile:
     json.dump(tractsfile, outfile, separators=(',', ': '), indent=4)
 
 print("saving classification.mat")
-sio.savemat('classification.mat', { "classification": {"names": names, "index": fiber_index }})
+sio.savemat('wmc/classification.mat', { "classification": {"names": names, "index": fiber_index }})
 
-print("creating tck/track.tck")
-commands = ["tckedit", "-force"] + files + ["tck/track.tck"]
+#print("creating tck/track.tck")
+#commands = ["tckedit", "-force"] + files + ["tck/track.tck"]
 #print(commands)
-subprocess.call(commands)
-
-print("all done")
-
+#subprocess.call(commands)
 
