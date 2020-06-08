@@ -35,7 +35,8 @@ for file in files:
     streamlines = np.zeros([count], dtype=object)
     for e in range(count):
         streamlines[e] = np.transpose(tck.streamlines[e]).round(2)
-    color=list(cm.nipy_spectral(len(names)))[0:3]
+    #color=list(cm.nipy_spectral(len(names)))[0:3]
+    color=list(cm.hsv(len(names)/len(files)))[0:3]
 
     print("sub-sampling for json")
     if count < 1000:
