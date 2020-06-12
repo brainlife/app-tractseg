@@ -10,7 +10,8 @@ from matplotlib import cm
 index=[]
 
 inputdir="tractseg_output/bundle_segmentations"
-for file in os.listdir(inputdir):
+files = os.listdir(inputdir)
+for file in files:
     if file[0] == ".":
         continue
 
@@ -21,7 +22,8 @@ for file in os.listdir(inputdir):
     #r=100
     #g=100
     #b=0
-    color=list(cm.nipy_spectral(len(index)))[0:3]
+    #color=list(cm.nipy_spectral(len(index)))[0:3]
+    color=list(cm.hsv(len(index)/len(files)))[0:3]
     #index.append({'filename':vtk_filename, 'name': surf_name, 'color': {'r':r, 'g':g, 'b':b}})
     index.append({'filename':vtk_filename, 'name': surf_name, 'color': color})
 
