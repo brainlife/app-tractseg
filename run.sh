@@ -30,7 +30,6 @@ TractSeg -i dwi.nii.gz --raw_diffusion_input \
     --output_type tract_segmentation \
     --keep_intermediate_files \
     --nr_cpus 8 \
-    -force \
     -o tractseg_output
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
@@ -38,7 +37,6 @@ echo "(2/4) running endings_segmentation"
 TractSeg -i tractseg_output/peaks.nii.gz \
     --output_type endings_segmentation \
     --nr_cpus 8 \
-    -force \
     -o tractseg_output
 
 #For each bundle create a Tract Orientation Map (Wasserthal et al., Tract orientation mapping for bundle-specific tractography). 
@@ -50,7 +48,6 @@ echo "(3/4) running TOM/tracking"
 TractSeg -i tractseg_output/peaks.nii.gz \
     --output_type TOM \
     --nr_cpus 8 \
-    -force \
     -o tractseg_output
 
 Tracking -i tractseg_output/peaks.nii.gz \
@@ -65,7 +62,6 @@ Tractometry -i tractseg_output/TOM_trackings/ \
     -s tractseg_output/peaks.nii.gz \
     --tracking_format tck \
     --TOM tractseg_output/TOM \
-    -force \
     --peak_length
 
 echo "all done with tractseg"
