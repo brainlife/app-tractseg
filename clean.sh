@@ -7,3 +7,14 @@ rm -rf tracts
 rm -f raw
 rm -rf endingmasks
 rm -rf wmc
+
+rm -rf bundle_segmentations
+rm -rf endings_segmentations
+rm -rf TOM
+rm -rf TOM_trackings
+
+rm -f Tractometry_peaks.csv
+rm -f response.txt
+rm -f WM_FODs.nii.gz
+rm -f peaks.nii.gz
+rm -f nodif_brain_mask.nii.gz
