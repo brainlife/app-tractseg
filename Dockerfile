@@ -3,7 +3,7 @@ FROM neurodebian:stretch-non-free
 MAINTAINER Soichi Hayashis <hayashis@iu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y git g++ python3 libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl-complete python3-pip jq strace curl vim 
+RUN apt-get update && apt-get install -y git g++ python3 libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev fsl-complete python3-pip jq strace curl vim python3-tk
 
 #libgomp1 seems to comes with pytorch so I don't need it
 
