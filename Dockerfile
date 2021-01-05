@@ -25,7 +25,8 @@ RUN pip3 install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip 
 RUN HOME=/ download_all_pretrained_weights
 
 #make it work under singularity 
-RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
+#RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft
+RUN ldconfig && mkdir -p /N/u /N/home /N/soft
 
 #https://wiki.ubuntu.com/DashAsBinSh 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
