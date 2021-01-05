@@ -51,7 +51,7 @@ The segmented white matter tracts.
 2. Inside the cloned directory, create `config.json` with something like the following content with paths to your input files:
 ```
 {
-  "dwi":    "./dwi/dwi.nii.gz",
+   "dwi":    "./dwi/dwi.nii.gz",
    "bvals":    "./dwi/dwi.bvals",
    "bvecs":    "./dwi/dwi.bvecs"
 }
@@ -62,11 +62,11 @@ The segmented white matter tracts.
 ```
 
 ### Output
-The App will generate four outputs:
-* a whole brain tractogram in .tck format, which includes all the segmented tracts (72 or less);
-* the segmented tracts in the white matter classification (wmc) format;
-* a list of nifti volumes for each tract segments, containing the tract masks;
-* a list of nifti volumes for each tract segments, containing the ending masks.
+This App will generate four outputs:
+* a whole brain tractogram in .tck format, which includes all the segmented tracts (72 or less)
+* the segmented tracts in the white matter classification (wmc) format
+* a list of nifti volumes for each tract segments, containing the tract masks
+* a list of nifti volumes for each tract segments, containing the ending masks
 
 #### Dependencies
 This App only requires [singularity](https://sylabs.io/singularity/) to run.
