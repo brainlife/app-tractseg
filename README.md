@@ -10,12 +10,13 @@ Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/Tra
 [TractSeg](https://doi.org/10.1016/j.neuroimage.2018.07.070) was developed by Jakob Wasserthal from Divison of Medical Image Computing at German Cancer Research Center (DKFZ). It uses pretrained 3D Fully Convolutional Neural Networks (FCNNs) to quickly identify human white matter tracts (bundles).
 
 ### Reference
-Plese refer to the official repository for more details: [MIC-DKFZ/TractSeg](https://github.com/MIC-DKFZ/TractSeg)
+Plese refer to the official repository for more details: [MIC-DKFZ/TractSeg](https://github.com/MIC-DKFZ/TractSeg).
 
 ### Authors
 - Soichi Hayashi (hayashis@iu.edu)
 
 ### Contributors
+- Jakob Wasserthal (j.wasserthal@dkfz.de)
 - Lindsey Kitchell (kitchell@iu.edu)
 
 ### Project director
@@ -36,20 +37,14 @@ We kindly ask that you cite the following articles when publishing papers and co
 2. Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [https://doi.org/10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
 ## Running the App 
-
 ### On [Brainlife.io](http://brainlife.io/) 
-
-You can run this App online 
-
-* with dwi input [https://doi.org/10.25663/bl.app.95](https://doi.org/10.25663/bl.app.95)
-
-via the "Execute" tab.
+You can submit this App online at https://doi.org/10.25663/brainlife.app.95 via the “Execute” tab.
 
 Input: \
-Input dwi image in .nii format. TractSeg will generate CSD peak from this dwi before running TOM tracking, and Tractography. It should be registered to MNI or ACPC aligned t1w.
+The dwi image in .nii format. TractSeg will generate CSD peak from this dwi before running TOM tracking, and Tractography. It should be registered to MNI or ACPC aligned t1w.
 
-Outputs: \
-The segmented tracts (72 or less).
+Output: \
+The segmented white matter tracts.
 
 ### Running locally
 1. git clone this repo.
@@ -69,7 +64,7 @@ The segmented tracts (72 or less).
 ### Output
 The App will generate four outputs:
 * a whole brain tractogram in .tck format, which includes all the segmented tracts (72 or less);
-* the segmented tracts in the White Matter Classification (WMC) format;
+* the segmented tracts in the white matter classification (wmc) format;
 * a list of nifti volumes for each tract segments, containing the tract masks;
 * a list of nifti volumes for each tract segments, containing the ending masks.
 
