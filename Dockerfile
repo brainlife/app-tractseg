@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git g++ python3 libeigen3-dev zlib1g-de
 
 #libgomp1 seems to comes with pytorch so I don't need it
 
-#RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade pip
 
 ## install and compile mrtrix3
 RUN git clone https://github.com/MRtrix3/mrtrix3.git
