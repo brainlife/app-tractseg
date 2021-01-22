@@ -44,7 +44,8 @@ RUN pip3.7 install -q --upgrade pip \
 #install batchgenerator/tractseg
 #RUN pip install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip install https://github.com/MIC-DKFZ/TractSeg/archive/v1.7.1.zip
 #RUN pip3 install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip3 install https://github.com/MIC-DKFZ/TractSeg/archive/v2.1.1.zip
-RUN pip3.7 install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip3 install https://github.com/MIC-DKFZ/TractSeg/archive/v2.2.zip
+#RUN pip3.7 install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip3 install https://github.com/MIC-DKFZ/TractSeg/archive/v2.2.zip
+RUN pip3.7 install https://github.com/MIC-DKFZ/batchgenerators/archive/master.zip && pip3 install https://github.com/MIC-DKFZ/TractSeg/archive/master.zip
 
 RUN HOME=/ download_all_pretrained_weights
 
