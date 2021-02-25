@@ -4,10 +4,6 @@
 #PBS -N tractseg
 #PBS -V
 
-#needed for bridges
-##SBATCH -p GPU-shared
-#SBATCH --gres=gpu:p100:2
-
 module load cuda/10.0
 
 set -x
