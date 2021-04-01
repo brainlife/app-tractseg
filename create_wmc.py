@@ -14,7 +14,7 @@ from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.2f') 
 
 names = np.array([], dtype=object)
-fiber_index = []
+fiber_index = np.array([], dtype='uint8')
 
 tractsfile = []
 
@@ -56,7 +56,8 @@ for file in files:
     tractsfile.append({"name": fullname, "color": color, "filename": filename})
     
     #for classification.mat
-    index = np.full((count,), len(names)+1) #matlab is 1-base indexed
+    #it would be stored like 1,1,1,2,2,2,3,3,3... etc
+    index = np.full((count,), len(names)+1, 'uint8') #matlab is 1-base indexed
     fiber_index = np.append(fiber_index, index)
     names = np.append(names, tractname.strip())
 
