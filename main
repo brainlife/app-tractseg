@@ -4,9 +4,9 @@
 #PBS -N tractseg
 #PBS -V
 
-#needed for bridges
+#needed for bridges (it must be set via the resource ENV)
 ##SBATCH -p GPU-shared
-#SBATCH --gres=gpu:p100:2
+##SBATCH --gres=gpu:p100:2
 
 module load cuda/10.0
 
