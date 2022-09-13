@@ -20,15 +20,17 @@ ln -sf $(jq -r .bvecs config.json) dwi.bvecs
 ln -sf $(jq -r .bvals config.json) dwi.bvals
 
 t1=`jq -r '.t1' config.json`
-if [ $t1 != "null" ]; then
-	ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
-fi
+#if [ $t1 != "null" ]; then
+#	ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
+#fi
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
     if [ $t1 == "null" ]; then
 	    echo "Error: csd_msmt_5tt requires a T1w image."
 	    exit 1
+    else
+        ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
     fi
     if [ $(jq -r .preprocess config.json) == "true" ]; then
 	    echo "Error: csd_msmt_5tt doesn't work with --preprocess."
