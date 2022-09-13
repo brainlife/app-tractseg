@@ -31,6 +31,10 @@ if [ $csd_type == "csd_msmt_5tt" ]; then
 	    echo "Error: csd_msmt_5tt requires a T1w image."
 	    exit 1
     fi
+    if [ $(jq -r .preprocess config.json) == "true" ]; then
+	    echo "Error: csd_msmt_5tt doesn't work with --preprocess."
+	    exit 1
+    fi
 fi
 
 echo "(1/4) running tract_segmentation"
