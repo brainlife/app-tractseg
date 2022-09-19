@@ -70,8 +70,7 @@ TractSeg -i tractseg_output/peaks.nii.gz \
 Tracking -i tractseg_output/peaks.nii.gz \
     --tracking_format tck \
     --nr_cpus 8 \
-    -o tractseg_output \
-    $opts
+    -o tractseg_output 
 
 echo "(4/4) running Tractometry"
 Tractometry -i tractseg_output/TOM_trackings/ \
