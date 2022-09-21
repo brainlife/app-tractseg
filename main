@@ -14,7 +14,7 @@ set -x
 set -e
 
 echo "running tractseg"
-time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
+time singularity exec --nv -e docker://wasserth/tractseg_container:master ./run.sh
 
 echo "creating wmc"
 mkdir -p wmc/tracts
