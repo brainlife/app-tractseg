@@ -6,8 +6,8 @@ set -x
 #cuda/nvidia drivers comes from the host. it needs to be mounted by singularity
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 
-source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some reason)
-export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
+#source /etc/fsl/5.0/fsl.sh #enable fsl (fsl6 still uses /etc/fsl/5.0.. for some reason)
+#export PATH=$PATH:/usr/lib/mrtrix/bin #enable mrtrix
 export HOME=/ #so that tractseg uses /.tractseg not ~/.tractseg to look for prestaged models
 
 opts=""
