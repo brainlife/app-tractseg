@@ -15,11 +15,8 @@ if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$opts --preprocess"
 fi
 
-peaks=`jq -r '.peaks' config.json`
 t1=`jq -r '.t1' config.json`
-strides=`jq -r '.strides' config.json`
 nr_fibers=`jq -r '.nr_fibers' config.json`
-bundles=`jq -r '.bundles' config.json`
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
@@ -35,6 +32,13 @@ if [ $csd_type == "csd_msmt_5tt" ]; then
     fi
 fi
 
+bundles=`jq -r '.bundles' config.json`
+opts_bundles="--bundles"
+if [ $(jq -r .bundles config.json) != "null" ]; then
+	opts_bundles="$opts_bundles $bundles"
+fi
+
+peaks=`jq -r '.peaks' config.json`
 if [ -f $peaks ]; then
 
     echo "peaks.nii.gz found. Running TractSeg from peaks."
@@ -57,6 +61,7 @@ else
            
 fi
 
+strides=`jq -r '.strides' config.json`
 if [ $strides == "null" ]; then
     cp peaks_orig.nii tractseg_output/peaks.nii
 else
@@ -86,7 +91,9 @@ TractSeg -i tractseg_output/peaks.nii.gz \
 Tracking -i tractseg_output/peaks.nii.gz \
     --tracking_format tck \
     --nr_cpus 8 \
-    -o tractseg_output 
+    --nr_fibers $nr_fibers \
+    -o tractseg_output \
+    $opts_bundles
 
 echo "(4/4) running Tractometry"
 Tractometry -i tractseg_output/TOM_trackings/ \
