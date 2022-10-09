@@ -15,12 +15,11 @@ if [ $(jq -r .preprocess config.json) == "true" ]; then
 	opts="$opts --preprocess"
 fi
 
-ln -sf $(jq -r .dwi config.json) dwi.nii.gz
-ln -sf $(jq -r .bvecs config.json) dwi.bvecs
-ln -sf $(jq -r .bvals config.json) dwi.bvals
-
+peaks=`jq -r '.peaks' config.json`
 t1=`jq -r '.t1' config.json`
-ln -sf $(jq -r .peaks config.json) ./tractseg_output/peaks.nii.gz
+strides=`jq -r '.strides' config.json`
+nr_fibers=`jq -r '.nr_fibers' config.json`
+bundles=`jq -r '.bundles' config.json`
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
@@ -36,7 +35,17 @@ if [ $csd_type == "csd_msmt_5tt" ]; then
     fi
 fi
 
-if [ ! -f ./tractseg_output/peaks.nii.gz ]; then
+if [ -f $peaks ]; then
+
+    echo "peaks.nii.gz found. Running TractSeg from peaks."
+    ln -sf $(jq -r .peaks config.json) ./tractseg_output/peaks.nii.gz
+
+else
+
+    ln -sf $(jq -r .dwi config.json) dwi.nii.gz
+    ln -sf $(jq -r .bvecs config.json) dwi.bvecs
+    ln -sf $(jq -r .bvals config.json) dwi.bvals
+
     echo "(1/4) running tract_segmentation"
     TractSeg -i dwi.nii.gz --raw_diffusion_input \
         --csd_type $(jq -r .csd config.json) \
@@ -45,8 +54,7 @@ if [ ! -f ./tractseg_output/peaks.nii.gz ]; then
         --nr_cpus 8 \
         -o tractseg_output \
         $opts
-else
-    echo "peaks.nii.gz found. Running TractSeg from peaks."        
+           
 fi
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
