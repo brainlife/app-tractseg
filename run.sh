@@ -20,9 +20,7 @@ ln -sf $(jq -r .bvecs config.json) dwi.bvecs
 ln -sf $(jq -r .bvals config.json) dwi.bvals
 
 t1=`jq -r '.t1' config.json`
-#if [ $t1 != "null" ]; then
-#	ln -sf $t1 T1w_acpc_dc_restore_brain.nii.gz
-#fi
+ln -sf $(jq -r .peaks config.json) ./tractseg_output/peaks.nii.gz
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
@@ -38,14 +36,18 @@ if [ $csd_type == "csd_msmt_5tt" ]; then
     fi
 fi
 
-echo "(1/4) running tract_segmentation"
-TractSeg -i dwi.nii.gz --raw_diffusion_input \
-    --csd_type $(jq -r .csd config.json) \
-    --output_type tract_segmentation \
-    --keep_intermediate_files \
-    --nr_cpus 8 \
-    -o tractseg_output \
-    $opts
+if [ ! -f ./tractseg_output/peaks.nii.gz ]; then
+    echo "(1/4) running tract_segmentation"
+    TractSeg -i dwi.nii.gz --raw_diffusion_input \
+        --csd_type $(jq -r .csd config.json) \
+        --output_type tract_segmentation \
+        --keep_intermediate_files \
+        --nr_cpus 8 \
+        -o tractseg_output \
+        $opts
+else
+    echo "peaks.nii.gz found. Running TractSeg from peaks."        
+fi
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
 echo "(2/4) running endings_segmentation"
