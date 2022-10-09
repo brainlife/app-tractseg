@@ -34,7 +34,7 @@ fi
 
 bundles=`jq -r '.bundles' config.json`
 opts_bundles="--bundles"
-if [ $(jq -r .bundles config.json) != "null" ]; then
+if [ $bundles != "null" ]; then
 	opts_bundles="$opts_bundles $bundles"
 fi
 
@@ -43,6 +43,12 @@ if [ -f $peaks ]; then
 
     echo "peaks.nii.gz found. Running TractSeg from peaks."
     ln -sf $(jq -r .peaks config.json) peaks_orig.nii.gz
+    
+    if [ $(jq -r .strides config.json) == "null" ]; then
+        cp peaks_orig.nii tractseg_output/peaks.nii.gz
+    else
+        mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
+    fi
 
 else
 
@@ -59,13 +65,6 @@ else
         -o tractseg_output \
         $opts
            
-fi
-
-strides=`jq -r '.strides' config.json`
-if [ $strides == "null" ]; then
-    cp peaks_orig.nii tractseg_output/peaks.nii
-else
-    mrconvert -strides $strides peaks_orig.nii tractseg_output/peaks.nii
 fi
 
 ##Get segmentations of the regions were the bundles start and end (helpful for filtering fibers that do not run from start until end).
