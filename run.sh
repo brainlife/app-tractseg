@@ -50,7 +50,13 @@ if [ -f $peaks ]; then
     else
         mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
     fi
-
+    echo "(1/4) running tract_segmentation"
+    TractSeg -i tractseg_output/peaks.nii.gz \
+        --output_type tract_segmentation \
+        --keep_intermediate_files \
+        --nr_cpus 8 \
+        -o tractseg_output 
+        
 else
 
     ln -sf $(jq -r .dwi config.json) dwi.nii.gz
