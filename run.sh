@@ -46,9 +46,9 @@ if [ -f $peaks ]; then
     
     strides=`jq -r .strides config.json`
     if [ "$strides" == "" ]; then
-        cp peaks_orig.nii.gz tractseg_output/peaks.nii.gz -f
+        cp peaks_orig.nii.gz tractseg_output/peaks.nii.gz
     else
-        mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz -f
+        mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
     fi
     echo "(1/4) running tract_segmentation"
     TractSeg -i tractseg_output/peaks.nii.gz \
