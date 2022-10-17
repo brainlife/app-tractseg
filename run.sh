@@ -20,7 +20,7 @@ nr_fibers=`jq -r '.nr_fibers' config.json`
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
-    if [ $t1 == "null" ]; then
+    if [ -f $t1 ]; then
 	    echo "Error: csd_msmt_5tt requires a T1w image."
 	    exit 1
     else
@@ -45,7 +45,7 @@ if [ -f $peaks ]; then
     ln -sf $(jq -r .peaks config.json) peaks_orig.nii.gz
     
     strides=`jq -r .strides config.json`
-    if [ $strides == "null" ]; then
+    if [ "$strides" == "" ]; then
         cp peaks_orig.nii tractseg_output/peaks.nii.gz
     else
         mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
@@ -56,7 +56,7 @@ if [ -f $peaks ]; then
         --keep_intermediate_files \
         --nr_cpus 8 \
         -o tractseg_output 
-        
+
 else
 
     ln -sf $(jq -r .dwi config.json) dwi.nii.gz
