@@ -15,7 +15,7 @@ set -e
 
 echo "running tractseg"
 rm -r tratseg_output
-mkdir -p tractseg_output
+mkdir tractseg_output
 time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
 
 echo "creating wmc"
