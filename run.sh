@@ -44,7 +44,8 @@ if [ -f $peaks ]; then
     echo "peaks.nii.gz found. Running TractSeg from peaks."
     ln -sf $(jq -r .peaks config.json) peaks_orig.nii.gz
     
-    if [ $(jq -r .strides config.json) == "null" ]; then
+    strides=`jq -r .strides config.json`
+    if [ $strides == "null" ]; then
         cp peaks_orig.nii tractseg_output/peaks.nii.gz
     else
         mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
