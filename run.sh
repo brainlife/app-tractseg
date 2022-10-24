@@ -131,7 +131,7 @@ else
         -s $var \
         --tracking_format tck 
     else
-        echo "Error: $var does not exists. Exit."
+        echo "Error: $var does not exist. Exit."
     fi
 fi    
 
