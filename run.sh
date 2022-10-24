@@ -105,12 +105,6 @@ echo "(4/4) running Tractometry"
 #By default, tractometry is run over the peak_length, since it doesn't require the tensor as input.
 #However, if the tensor is given as input, the user may decide to run tractometry on either FA, MD, RD, or AD.
 
-strides=`jq -r .strides config.json`
-    if [ "$strides" == "" ]; then
-        cp peaks_orig.nii.gz tractseg_output/peaks.nii.gz
-    else
-        mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
-
 tractometry_input=`jq -r '.tractometry_input' config.json`
 if [ $tractometry_input == 'peak_length' ]; then
 
