@@ -130,11 +130,11 @@ else
         else
             mrconvert -strides $strides $var tmp.nii.gz -force
         fi    
-    Tractometry -i tractseg_output/TOM_trackings/ \
-        -o tractseg_output/Tractometry_peaks.csv \
-        -e tractseg_output/endings_segmentations/ \
-        -s tmp.nii.gz \
-        --tracking_format tck 
+        Tractometry -i tractseg_output/TOM_trackings/ \
+            -o tractseg_output/Tractometry_peaks.csv \
+            -e tractseg_output/endings_segmentations/ \
+            -s tmp.nii.gz \
+            --tracking_format tck 
     else
         echo "Error: $var does not exist. Exit."
     fi
