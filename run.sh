@@ -102,8 +102,8 @@ Tracking -i tractseg_output/peaks.nii.gz \
     $opts_bundles
 
 echo "(4/4) running Tractometry"
-#By defult, tractometry is run over the peak_length, since it doesn't require the tensor as input.
-#However, if the tensor is given as input, the user may decide to rn tractometry on either FA, MD, RD, or AD.
+#By default, tractometry is run over the peak_length, since it doesn't require the tensor as input.
+#However, if the tensor is given as input, the user may decide to run tractometry on either FA, MD, RD, or AD.
 
 tractometry_input=`jq -r '.tractometry_input' config.json`
 if [ $tractometry_input == 'peak_length' ]; then
