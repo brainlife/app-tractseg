@@ -38,19 +38,13 @@ if [ "$bundles" != "" ]; then
 	opts_bundles="$opts_bundles --bundles $bundles"
 fi
 
+echo "(1/4) running tract_segmentation"
 peaks=`jq -r '.peaks' config.json`
 if [ -f $peaks ]; then
 
     echo "peaks.nii.gz found. Running TractSeg from peaks."
-    ln -sf $(jq -r .peaks config.json) peaks_orig.nii.gz
-    
-    strides=`jq -r .strides config.json`
-    if [ "$strides" == "" ]; then
-        cp peaks_orig.nii.gz tractseg_output/peaks.nii.gz
-    else
-        mrconvert -strides $strides peaks_orig.nii.gz tractseg_output/peaks.nii.gz
-    fi
-    echo "(1/4) running tract_segmentation"
+    ln -sf $(jq -r .peaks config.json) tractseg_output/peaks.nii.gz
+
     TractSeg -i tractseg_output/peaks.nii.gz \
         --output_type tract_segmentation \
         --keep_intermediate_files \
@@ -63,7 +57,6 @@ else
     ln -sf $(jq -r .bvecs config.json) dwi.bvecs
     ln -sf $(jq -r .bvals config.json) dwi.bvals
 
-    echo "(1/4) running tract_segmentation"
     TractSeg -i dwi.nii.gz --raw_diffusion_input \
         --csd_type $(jq -r .csd config.json) \
         --output_type tract_segmentation \
@@ -122,21 +115,17 @@ else
     ad=`jq -r '.ad' config.json`
     md=`jq -r '.md' config.json`
     rd=`jq -r '.rd' config.json`
-    var=$tractograpy_input
+    image=${!tractograpy_input}
     
-    if [ -f $var ]; then
-        if [ "$strides" == "" ]; then
-            cp $var tmp.nii.gz
-        else
-            mrconvert -strides $strides $var tmp.nii.gz -force
-        fi    
+    if [ -f $image]; then 
         Tractometry -i tractseg_output/TOM_trackings/ \
             -o tractseg_output/Tractometry_peaks.csv \
             -e tractseg_output/endings_segmentations/ \
-            -s tmp.nii.gz \
+            -s $image \
             --tracking_format tck 
     else
-        echo "Error: $var does not exist. Exit."
+        echo "Error: $image does not exist. Check your tensor input."
+        exit 1
     fi
 fi    
 
