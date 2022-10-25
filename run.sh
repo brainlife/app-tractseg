@@ -43,7 +43,7 @@ peaks=`jq -r '.peaks' config.json`
 if [ -f $peaks ]; then
 
     echo "peaks.nii.gz found. Running TractSeg from peaks."
-    ln -sf $(jq -r .peaks config.json) tractseg_output/peaks.nii.gz
+    cp -sf $(jq -r .peaks config.json) tractseg_output/peaks.nii.gz
 
     TractSeg -i tractseg_output/peaks.nii.gz \
         --output_type tract_segmentation \
@@ -119,7 +119,7 @@ else
     
     if [ -f $image]; then 
         Tractometry -i tractseg_output/TOM_trackings/ \
-            -o tractseg_output/Tractometry_peaks.csv \
+            -o tractseg_output/tractmeasures.csv \
             -e tractseg_output/endings_segmentations/ \
             -s $image \
             --tracking_format tck 
