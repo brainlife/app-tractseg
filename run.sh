@@ -115,7 +115,7 @@ else
     ad=`jq -r '.ad' config.json`
     md=`jq -r '.md' config.json`
     rd=`jq -r '.rd' config.json`
-    image=${!tractograpy_input}
+    image=${!tractometry_input}
     
     if [ -f $image]; then 
         Tractometry -i tractseg_output/TOM_trackings/ \
