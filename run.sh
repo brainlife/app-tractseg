@@ -33,9 +33,9 @@ if [ $csd_type == "csd_msmt_5tt" ]; then
 fi
 
 bundles=`jq -r '.bundles' config.json`
-opts_bundles="--bundles"
-if [ $bundles != "null" ]; then
-	opts_bundles="$opts_bundles $bundles"
+opts_bundles=""
+if [ "$bundles" != "" ]; then
+	opts_bundles="$opts_bundles --bundles $bundles"
 fi
 
 peaks=`jq -r '.peaks' config.json`
