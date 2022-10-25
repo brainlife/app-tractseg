@@ -43,7 +43,7 @@ peaks=`jq -r '.peaks' config.json`
 if [ -f $peaks ]; then
 
     echo "peaks.nii.gz found. Running TractSeg from peaks."
-    cp -sf $(jq -r .peaks config.json) tractseg_output/peaks.nii.gz
+    cp $(jq -r .peaks config.json) tractseg_output/peaks.nii.gz
 
     TractSeg -i tractseg_output/peaks.nii.gz \
         --output_type tract_segmentation \
