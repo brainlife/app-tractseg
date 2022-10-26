@@ -117,7 +117,7 @@ else
     rd=`jq -r '.rd' config.json`
     image=${!tractometry_input}
     
-    if [ -f $image]; then 
+    if [ -f $image ]; then 
         Tractometry -i tractseg_output/TOM_trackings/ \
             -o tractseg_output/Tractometry_peaks.csv \
             -e tractseg_output/endings_segmentations/ \
