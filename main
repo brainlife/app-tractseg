@@ -36,6 +36,6 @@ mkdir -p endingmasks
 ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
 
 #create tractometry output
-mkdir tractseg_tractometry
-ln -sf ../tractseg_output/Tractometry_peaks.csv tractseg_tractometry/Tractometry_peaks.csv
+mkdir -p tractseg_tractometry
+ln -sf ../tractseg_output/Tractometry_peaks.csv tractseg_tractometry/tractmeasures.csv
 echo "all done"
