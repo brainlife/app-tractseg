@@ -119,7 +119,7 @@ else
     
     if [ -f $image]; then 
         Tractometry -i tractseg_output/TOM_trackings/ \
-            -o tractseg_output/tractmeasures.csv \
+            -o tractseg_output/Tractometry_peaks.csv \
             -e tractseg_output/endings_segmentations/ \
             -s $image \
             --tracking_format tck 
