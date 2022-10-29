@@ -1,5 +1,7 @@
 FROM neurodebian:stretch-non-free
 
+ARG tag
+
 MAINTAINER Soichi Hayashis <hayashis@iu.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive
