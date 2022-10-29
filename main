@@ -14,7 +14,8 @@ set -x
 set -e
 
 echo "running tractseg"
-time singularity exec --nv -e docker://brainlife/tractseg:2.5 ./run.sh
+rm -rf tractseg_output && mkdir -p tractseg_output
+time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
 
 echo "creating wmc"
 mkdir -p wmc/tracts
@@ -34,4 +35,7 @@ ln -sf ../tractseg_output/bundle_segmentations output/masks
 mkdir -p endingmasks
 ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
 
+#create tractometry output
+mkdir -p tractseg_tractometry
+ln -sf ../tractseg_output/Tractometry_peaks.csv tractseg_tractometry/tractmeasures.csv
 echo "all done"
