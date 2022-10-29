@@ -3,11 +3,11 @@
 
 # app-tractseg
 
+[Warning: only App versions >= 2.2 are currently maintained.]
+
 Segment 72 white matter tracts. 
 
 Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/TractSeg](https://github.com/MIC-DKFZ/TractSeg). A tool for fast and accurate white matter bundle segmentation from Diffusion MRI. 
-
-Warning: only App versions >= 2.2 are currently maintained.
 
 [TractSeg](https://doi.org/10.1016/j.neuroimage.2018.07.070) was developed by Jakob Wasserthal from Divison of Medical Image Computing at German Cancer Research Center (DKFZ). It uses pretrained 3D Fully Convolutional Neural Networks (FCNNs) to quickly identify human white matter tracts (bundles).
 
