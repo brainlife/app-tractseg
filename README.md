@@ -7,6 +7,8 @@ Segment 72 white matter tracts.
 
 Brainlife App for Automatic White Matter Bundle Segmentation using [MIC-DKFZ/TractSeg](https://github.com/MIC-DKFZ/TractSeg). A tool for fast and accurate white matter bundle segmentation from Diffusion MRI. 
 
+Warning: only App versions >= 2.2 are currently maintained.
+
 [TractSeg](https://doi.org/10.1016/j.neuroimage.2018.07.070) was developed by Jakob Wasserthal from Divison of Medical Image Computing at German Cancer Research Center (DKFZ). It uses pretrained 3D Fully Convolutional Neural Networks (FCNNs) to quickly identify human white matter tracts (bundles).
 
 ### Reference
@@ -18,6 +20,7 @@ Plese refer to the official repository for more details: [MIC-DKFZ/TractSeg](htt
 ### Contributors
 - Jakob Wasserthal (j.wasserthal@dkfz.de)
 - Lindsey Kitchell (kitchell@iu.edu)
+- Giulia Berto
 
 ### Project director
 - Franco Pestilli (franpest@indiana.edu)
@@ -41,7 +44,12 @@ We kindly ask that you cite the following articles when publishing papers and co
 You can submit this App online at https://doi.org/10.25663/brainlife.app.95 via the “Execute” tab.
 
 Input: \
-The dwi image in .nii format. TractSeg will generate CSD peak from this dwi before running TOM tracking, and Tractography. It should be registered to MNI or ACPC aligned t1w.
+The dwi image in .nii format. TractSeg will generate CSD peaks from this dwi before running TOM tracking, Tractography, and Tractometry. The input dwi image must have the same "orientation" as the Human Connectome Project data (MNI space) (LEFT must be on the same side as LEFT of the HCP data).
+Alternatively, a peaks.nii.gz file can be given as input (App "TractSeg - from peaks to tractometry" https://doi.org/10.25663/brainlife.app.684).
+
+Optional inputs:
+- T1w images (registered to the dwi), required for cst_msmt_5tt option.
+- tensor image (registered to the dwi), required to run Tractometry on either FA, MD, RD, or AD instead that on the peak length (default).
 
 Output: \
 The segmented white matter tracts.
@@ -51,9 +59,14 @@ The segmented white matter tracts.
 2. Inside the cloned directory, create `config.json` with something like the following content with paths to your input files:
 ```
 {
-   "dwi":    "./dwi/dwi.nii.gz",
-   "bvals":    "./dwi/dwi.bvals",
-   "bvecs":    "./dwi/dwi.bvecs"
+"dwi": "testdata/dwi.nii.gz",
+"bvecs": "testdata/dwi.bvecs",
+"bvals": "testdata/dwi.bvals",
+"preprocess": false,
+"csd": "csd",
+"nr_fibers": 2000,
+"bundles": "",
+"tractometry_input": "peak_length"
 }
 ```
 3. Launch the App by executing `main`.
@@ -67,6 +80,8 @@ This App will generate four outputs:
 * the segmented tracts in the white matter classification (wmc) format
 * a list of nifti volumes for each tract segments, containing the tract masks
 * a list of nifti volumes for each tract segments, containing the ending masks
+* a Tractseg output directory containing bundle_segmentations, endings_segmentations, Tractometry_peaks.csv, etc..
+* a tractmeasures.csv file corresponding to the Tractometry_peaks.csv file
 
 #### Dependencies
 This App only requires [singularity](https://sylabs.io/singularity/) to run.
