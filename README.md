@@ -49,7 +49,7 @@ Alternatively, a peaks.nii.gz file can be given as input (App "TractSeg - from p
 
 Optional inputs:
 - T1w images (registered to the dwi), required for cst_msmt_5tt option.
-- tensor image (registered to the dwi), required to run Tractometry on either FA, MD, RD, or AD instead that on the peak length (default).
+- (work in progress) tensor image (registered to the dwi), required to run Tractometry on either FA, MD, RD, or AD instead that on the peak length (default).
 
 Output: \
 The segmented white matter tracts.
