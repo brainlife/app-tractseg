@@ -41,7 +41,7 @@ We kindly ask that you cite the following articles when publishing papers and co
 
 ## Running the App 
 ### On [Brainlife.io](http://brainlife.io/) 
-You can submit this App online at https://doi.org/10.25663/brainlife.app.95 via the “Execute” tab.
+You can submit this App online at https://doi.org/10.25663/brainlife.app.186 via the “Execute” tab.
 
 Input: \
 The dwi image in .nii format. TractSeg will generate CSD peaks from this dwi before running TOM tracking, Tractography, and Tractometry. The input dwi image must have the same "orientation" as the Human Connectome Project data (MNI space) (LEFT must be on the same side as LEFT of the HCP data).
