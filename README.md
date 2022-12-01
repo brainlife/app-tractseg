@@ -45,7 +45,7 @@ You can submit this App online at https://doi.org/10.25663/brainlife.app.186 via
 
 Input: \
 The dwi image in .nii format. TractSeg will generate CSD peaks from this dwi before running TOM tracking, Tractography, and Tractometry. The input dwi image must have the same "orientation" as the Human Connectome Project data (MNI space) (LEFT must be on the same side as LEFT of the HCP data).
-Alternatively, a peaks.nii.gz file can be given as input (App "TractSeg - from peaks to tractometry" https://doi.org/10.25663/brainlife.app.684).
+Alternatively, a peaks.nii.gz file can be given as input (App "TractSeg - from peaks" https://doi.org/10.25663/brainlife.app.684).
 
 Optional inputs:
 - T1w images (registered to the dwi), required for cst_msmt_5tt option.
