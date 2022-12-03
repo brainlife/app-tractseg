@@ -27,9 +27,8 @@ echo "merging .tck into 1"
 mkdir -p tck
 singularity exec -e docker://brainlife/mrtrix3:3.0.0 tckedit -force tractseg_output/TOM_trackings/*.tck tck/track.tck
 #check size of tractogram
-minimumsize=10000
 actualsize=$(wc -c <"tck/track.tck")
-if [ $actualsize -le $minimumsize ]; then
+if [ $actualsize -le 10000 ]; then
     echo "tck/track.tck seems empty. exiting"
     exit 1
 fi
