@@ -97,11 +97,11 @@ Tracking -i tractseg_output/peaks.nii.gz \
 ##Tractometry is run over the peak_length.
 echo "(4/4) running Tractometry"
 Tractometry -i tractseg_output/TOM_trackings/ \
-        -o tractseg_output/Tractometry_peaks.csv \
-        -e tractseg_output/endings_segmentations/ \
-        -s tractseg_output/peaks.nii.gz \
-        --tracking_format tck \
-        --TOM tractseg_output/TOM \
-        --peak_length
+    -o tractseg_output/Tractometry_peaks.csv \
+    -e tractseg_output/endings_segmentations/ \
+    -s tractseg_output/peaks.nii.gz \
+    --tracking_format tck \
+    --TOM tractseg_output/TOM \
+    --peak_length
 
 echo "all done with tractseg"
