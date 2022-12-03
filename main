@@ -13,44 +13,46 @@ module load cuda/10.0
 set -x
 set -e
 
-tractometry_input=`jq -r '.tractometry_input' config.json`
-tensor=`jq -r '.tensor' config.json`
+fa=`jq -r '.fa' config.json`
 
-rm -rf tractseg_output && mkdir -p tractseg_output
+if [ ! -f $fa ]; then
 
-if [ $tractometry_input == 'peak_length' ]; then
     echo "running tractseg and tractometry on peak length"
+    rm -rf tractseg_output && mkdir -p tractseg_output
     time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
-elif [ -f $tensor ]; then
-    echo "running tractometry on tensor"
+    
+    echo "creating wmc"
+    mkdir -p wmc/tracts
+    singularity exec -e docker://brainlife/dipy:1.1.1 ./create_wmc.py
+    mkdir -p wmc/surfaces
+    singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
+
+    echo "merging .tck into 1"
+    mkdir -p tck
+    singularity exec -e docker://brainlife/mrtrix3:3.0.0 tckedit -force tractseg_output/TOM_trackings/*.tck tck/track.tck
+    #check size of tractogram
+    actualsize=$(wc -c <"tck/track.tck")
+    if [ $actualsize -le 10000 ]; then
+        echo "tck/track.tck seems empty. exiting"
+        exit 1
+    fi
+
+    #create tractseg output
+    mkdir -p output
+    ln -sf ../tractseg_output/bundle_segmentations output/masks
+
+    #create tractmasks output
+    mkdir -p endingmasks
+    ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
+
+    #create tractometry output
+    mkdir -p tractseg_tractometry
+    ln -sf ../tractseg_output/Tractometry_peaks.csv tractseg_tractometry/tractmeasures.csv
+    echo "all done"
+
+elif [ -f $fa ]; then
+
+    echo "running tractometry on tensor (with precomputed tractseg output)"
     time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./tractometry.sh
-fi
 
-echo "creating wmc"
-mkdir -p wmc/tracts
-singularity exec -e docker://brainlife/dipy:1.1.1 ./create_wmc.py
-mkdir -p wmc/surfaces
-singularity exec -e docker://brainlife/pythonvtk:1.1 ./mask2surface.py
-
-echo "merging .tck into 1"
-mkdir -p tck
-singularity exec -e docker://brainlife/mrtrix3:3.0.0 tckedit -force tractseg_output/TOM_trackings/*.tck tck/track.tck
-#check size of tractogram
-actualsize=$(wc -c <"tck/track.tck")
-if [ $actualsize -le 10000 ]; then
-    echo "tck/track.tck seems empty. exiting"
-    exit 1
-fi
-
-#create tractseg output
-mkdir -p output
-ln -sf ../tractseg_output/bundle_segmentations output/masks
-
-#create tractmasks output
-mkdir -p endingmasks
-ln -sf ../tractseg_output/endings_segmentations endingmasks/masks
-
-#create tractometry output
-mkdir -p tractseg_tractometry
-ln -sf ../tractseg_output/Tractometry_peaks.csv tractseg_tractometry/tractmeasures.csv
-echo "all done"
+fi    
