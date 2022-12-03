@@ -94,39 +94,14 @@ Tracking -i tractseg_output/peaks.nii.gz \
     -o tractseg_output \
     $opts_bundles
 
+#By default, tractometry is run over the peak_length.
 echo "(4/4) running Tractometry"
-#By default, tractometry is run over the peak_length, since it doesn't require the tensor as input.
-#However, if the tensor is given as input, the user may decide to run tractometry on either FA, MD, RD, or AD.
-
-tractometry_input=`jq -r '.tractometry_input' config.json`
-if [ $tractometry_input == 'peak_length' ]; then
-
-    Tractometry -i tractseg_output/TOM_trackings/ \
+Tractometry -i tractseg_output/TOM_trackings/ \
         -o tractseg_output/Tractometry_peaks.csv \
         -e tractseg_output/endings_segmentations/ \
         -s tractseg_output/peaks.nii.gz \
         --tracking_format tck \
         --TOM tractseg_output/TOM \
         --peak_length
-
-else 
-
-    fa=`jq -r '.fa' config.json`
-    ad=`jq -r '.ad' config.json`
-    md=`jq -r '.md' config.json`
-    rd=`jq -r '.rd' config.json`
-    image=${!tractometry_input}
-    
-    if [ -f $image ]; then 
-        Tractometry -i tractseg_output/TOM_trackings/ \
-            -o tractseg_output/Tractometry_peaks.csv \
-            -e tractseg_output/endings_segmentations/ \
-            -s $image \
-            --tracking_format tck 
-    else
-        echo "Error: $image does not exist. Check your tensor input."
-        exit 1
-    fi
-fi    
 
 echo "all done with tractseg"

@@ -13,9 +13,21 @@ module load cuda/10.0
 set -x
 set -e
 
-echo "running tractseg"
+dwi=`jq -r '.dwi' config.json`
+peaks=`jq -r '.peaks' config.json`
+tensor=`jq -r '.tensor' config.json`
+
 rm -rf tractseg_output && mkdir -p tractseg_output
-time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
+
+if [ -f $dwi ] || [ -f $peaks ]; then
+
+    echo "running tractseg and tractometry on peak length"
+    time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
+
+elif [ -f $tensor ]; then
+    echo "running tractometry on tensor"
+    time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./tractometry.sh
+fi
 
 echo "creating wmc"
 mkdir -p wmc/tracts
