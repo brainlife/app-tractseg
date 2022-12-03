@@ -19,12 +19,9 @@ tensor=`jq -r '.tensor' config.json`
 rm -rf tractseg_output && mkdir -p tractseg_output
 
 if [ $tractometry_input == 'peak_length' ]; then
-
     echo "running tractseg and tractometry on peak length"
     time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./run.sh
-
 elif [ -f $tensor ]; then
-
     echo "running tractometry on tensor"
     time singularity exec --nv -e docker://brainlife/tractseg:2.7 ./tractometry.sh
 fi
