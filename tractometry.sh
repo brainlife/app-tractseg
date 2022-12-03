@@ -22,9 +22,9 @@ do
     outdir=tractseg_tractometry_$var
     mkdir -p $outdir
 
-    Tractometry -i TOM_trackings \
+    Tractometry -i $TOM_trackings \
         -o $outdir/tractmeasures.csv \
-        -e endings_segmentations \
+        -e $endings_segmentations \
         -s ${var}.nii.gz \
         --tracking_format tck 
 done
