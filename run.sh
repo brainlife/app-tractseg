@@ -94,7 +94,7 @@ Tracking -i tractseg_output/peaks.nii.gz \
     -o tractseg_output \
     $opts_bundles
 
-#By default, tractometry is run over the peak_length.
+##Tractometry is run over the peak_length.
 echo "(4/4) running Tractometry"
 Tractometry -i tractseg_output/TOM_trackings/ \
         -o tractseg_output/Tractometry_peaks.csv \
