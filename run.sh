@@ -20,7 +20,7 @@ nr_fibers=`jq -r '.nr_fibers' config.json`
 
 csd_type=`jq -r '.csd' config.json`
 if [ $csd_type == "csd_msmt_5tt" ]; then
-    if [ -f $t1 ]; then
+    if [ ! -f $t1 ]; then
 	    echo "Error: csd_msmt_5tt requires a T1w image."
 	    exit 1
     else
