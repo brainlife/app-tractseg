@@ -20,7 +20,7 @@ Plese refer to the official repository for more details: [MIC-DKFZ/TractSeg](htt
 - Lindsey Kitchell (kitchell@iu.edu)
 
 ### Project director
-- Franco Pestilli (franpest@indiana.edu)
+- Franco Pestilli ([@francopestilli](https://github.com/francopestilli))
 
 ### Funding Acknowledgement
 brainlife.io is publicly funded and for the sustainability of the project it is helpful to Acknowledge the use of the platform. We kindly ask that you acknowledge the funding below in your publications and code reusing this code.
