@@ -18,15 +18,25 @@
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
-**Segments 72 white matter bundles from precomputed CSD peaks with TractSeg 2.7 and outputs bundle masks, ending masks, bundle-specific tractograms and tractometry.**
+> **Segments 72 white matter bundles from precomputed CSD peaks with TractSeg 2.7 and outputs bundle masks, ending masks, bundle-specific tractograms and tractometry.**
 
 Runs TractSeg directly on a peaks image (skipping the CSD step): bundle segmentation, endings segmentation, TOM tracking and Tractometry, converted into brainlife tck, wmc and tractmasks datatypes. Use it when MRtrix3 CSD peaks already exist, for example from another App. The peaks must be in the orientation expected by TractSeg (HCP/MNI-like). Runs on a GPU.
 
-Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.684](https://doi.org/10.25663/brainlife.app.684)
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/peaks` |
+| 📤 **Outputs** | `neuro/track/tck` · `neuro/wmc` · `neuro/tractmasks` ×2 · `neuro/tractseg` · `neuro/tractmeasures` |
+| 🐳 **Container** | `brainlife/tractseg:2.7` |
+| ⚙️ **Resources** | 16 CPUs · 4 h walltime · GPU |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.684](https://doi.org/10.25663/brainlife.app.684) |
+
+#### 📥 Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `peaks` | `neuro/peaks` | yes | CSD peaks. Same orientation as HCP (MNI) data, as required by TractSeg. |
+
+#### 📤 Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
@@ -37,16 +47,16 @@ Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.684](https://doi
 | `tractseg_output` | `neuro/tractseg` | The full TractSeg output directory (peaks, segmentations, TOM, trackings, tractometry). |
 | `tractseg_tractometry` | `neuro/tractmeasures` | Tractometry_peaks.csv |
 
+<details>
+<summary><b>⚙️ Parameters</b> (3)</summary>
+
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `nr_fibers` | number | `2000` | Number of fibers to create for each bundle (default: 2000). [non-default options available for App version >= 2.2] |
 | `bundles` | string |  | Comma separated list (without spaces) of bundles you want to track. Leave empty if you want to track all (default). For the list of possible bundles, please refer to https://github.com/MIC-DKFZ/TractSeg. [non-default options available for App version >= 2.2] |
 | `tractometry_input` | enum | `peak_length` | For tractometry, the peak length along the tracts will be analyzed. If you want to run tractometry on either FA, MD, RD, or AD, you need to have the tensor as input, and you can run the App XXX (work in progress). Options: `peak_length`. |
 
-Runtime: container `brainlife/tractseg:2.7`; 16 CPUs; 4 h walltime; GPU.
-
-Please cite:
-- Wasserthal J, Neher P, Maier-Hein KH. TractSeg - Fast and accurate white matter tract segmentation. NeuroImage 183, 239-253 (2018). [doi:10.1016/j.neuroimage.2018.07.070](https://doi.org/10.1016/j.neuroimage.2018.07.070)
+</details>
 
 <!-- brainlife-app:end -->
 
